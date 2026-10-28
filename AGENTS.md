@@ -21,7 +21,10 @@ Astro 7 statik site; bağımlılıklar: `astro`, Fontsource ile Gloock + Literat
 |---|---|
 | Yazılar (Markdown) | `src/content/yazilar/<yazının dili>/<slug>.md` |
 | Şema | `src/content.config.ts` |
-| Sayı, yazarlar | `src/data/issues.json`, `src/data/authors.json` |
+| Sayı | `src/data/issues.json` |
+| Yazarlar (yazar başına bir dosya) | `src/content/yazarlar/<id>.json` |
+| Ana sayfa dergisi (PDF'ten) | `src/views/Magazine.astro`, `src/data/magazine/*.json` |
+| Yazı paneli (CMS) | `public/admin/` → `docs/YAZI_PANELI.md` |
 | Arayüz metinleri (3 dil) | `src/i18n/ui.ts`, yardımcılar `src/i18n/utils.ts` |
 | Tüm iç sayfaların rotası | `src/pages/[lang]/[...path].astro` → `src/views/*.astro` |
 | Tam ekran kapak | `src/components/IssueCover.astro` (+ `EbruField.astro`, `src/lib/ebru.ts`) |

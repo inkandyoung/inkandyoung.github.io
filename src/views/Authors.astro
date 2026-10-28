@@ -34,7 +34,7 @@ const posts = await getPosts();
                   {t('authors.writes')}: {author.data.writes.map((l) => t(`lang.${l}`)).join(', ')}
                 </span>
               </p>
-              <p class="bio">{author.data.bio[lang]}</p>
+              <p class="bio" lang={author.data.bio[lang] ? undefined : 'tr'}>{author.data.bio[lang] ?? author.data.bio.tr}</p>
               {works.length > 0 && (
                 <ul class="works" aria-label={t('authors.works')}>
                   {works.map((post) => (

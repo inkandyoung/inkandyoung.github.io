@@ -23,7 +23,7 @@ const t = useTranslations(lang);
 <footer class:list={['end', className]} lang={lang}>
   <section class="bio" aria-labelledby="bio-name">
     <h2 id="bio-name"><a href={`${localPath(lang, 'authors')}#${author.id}`}>{author.data.name}</a></h2>
-    <p>{author.data.bio[lang]}</p>
+    <p lang={author.data.bio[lang] ? undefined : 'tr'}>{author.data.bio[lang] ?? author.data.bio.tr}</p>
   </section>
 
   <PostPager lang={lang} prev={prev} next={next} />

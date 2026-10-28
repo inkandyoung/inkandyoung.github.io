@@ -1,0 +1,13 @@
+{
+  "name": "Hana Lindqvist",
+  "city": "London",
+  "writes": [
+    "en",
+    "bs"
+  ],
+  "bio": {
+    "tr": "Boşnak bir annenin ve İsveçli bir babanın kızı. Londra'da müzik ve göç üzerine yazıyor.",
+    "bs": "Kći majke Bosanke i oca Šveđanina. U Londonu piše o muzici i migraciji.",
+    "en": "Daughter of a Bosnian mother and a Swedish father. She writes about music and migration from London."
+  }
+}

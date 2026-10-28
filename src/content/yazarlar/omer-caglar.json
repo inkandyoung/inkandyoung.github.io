@@ -1,0 +1,13 @@
+{
+  "name": "Ömer Çağlar",
+  "city": "İstanbul",
+  "writes": [
+    "tr",
+    "bs"
+  ],
+  "bio": {
+    "tr": "Çevirmen ve deneme yazarı. Boşnak edebiyatından Türkçeye çeviriler yapıyor; Saraybosna ile İstanbul arasında gidip geliyor.",
+    "bs": "Prevodilac i esejista. Prevodi bosansku književnost na turski i živi na relaciji Sarajevo–Istanbul.",
+    "en": "Translator and essayist. He translates Bosnian literature into Turkish and divides his time between Sarajevo and Istanbul."
+  }
+}

@@ -36,13 +36,15 @@ const issues = defineCollection({
   }),
 });
 
+/** One JSON file per author; the file name is the id posts refer to. Edited from /admin/. */
 const authors = defineCollection({
-  loader: file('./src/data/authors.json'),
+  loader: glob({ base: './src/content/yazarlar', pattern: '*.json' }),
   schema: z.object({
     name: z.string(),
     city: z.string(),
     writes: z.array(lang).min(1),
-    bio: localized,
+    /** Turkish is required; a missing translation falls back to the Turkish text, never a made-up one. */
+    bio: z.object({ tr: z.string(), bs: z.string().optional(), en: z.string().optional() }),
   }),
 });
 

@@ -1,0 +1,13 @@
+{
+  "name": "Emina Hadžić",
+  "city": "Sarajevo",
+  "writes": [
+    "bs",
+    "tr"
+  ],
+  "bio": {
+    "tr": "Şair ve çevirmen. Çocukluğu Bursa'da, gençliği Saraybosna'da geçti; iki dilde de yazıyor.",
+    "bs": "Pjesnikinja i prevoditeljica. Djetinjstvo je provela u Bursi, mladost u Sarajevu; piše na oba jezika.",
+    "en": "Poet and translator. She spent her childhood in Bursa and her youth in Sarajevo, and writes in both languages."
+  }
+}

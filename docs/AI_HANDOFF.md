@@ -5,6 +5,18 @@ Genel durum `PROJECT_STATE.md`, öncelikler `ROADMAP.md` içinde. Buraya yalnız
 
 ---
 
+## 2026-10-28 (3) · Claude Code
+
+**Yapılan:** kullanıcı "kendi yazılarımızı koyabileceğimiz site" istedi. Sveltia CMS paneli eklendi: `public/admin/`
+(`index.html` + `config.yml`), adres `/dergi/admin/`, GitHub token ile giriş. Yazarlar `src/data/authors.json` →
+`src/content/yazarlar/<id>.json` (glob loader) taşındı ki panelden eklenebilsin. Özgeçmişin BS/EN'i artık isteğe bağlı;
+yoksa TR metin `lang="tr"` ile gösteriliyor. `astro.config.mjs` `process` tip hatası giderildi. Kullanım: `docs/YAZI_PANELI.md`.
+Panel yerelde yüklendi, config Sveltia şemasına göre 0 hata; GitHub ile gerçek kayıt henüz denenmedi (kullanıcı token alınca).
+
+**Açık:** kısa link için kullanıcıya seçim kartı soruldu (alan adı al / inkandyoung.github.io / böyle kalsın).
+Alan adı gelirse: `public/CNAME`, iş akışında `BASE_PATH` boş, `config.yml` `site_url`/`public_folder` güncelle.
+Örnek yazılar (uydurma yazarlar) hâlâ "Yazılar" sayfasında; kullanıcı panelden silebilir ya da istenirse topluca kaldırılır.
+
 ## 2026-10-28 (2) · Claude Code
 
 **Yapılan:** ana sayfa kullanıcının gönderdiği üç PDF'e (ink_young_turkce/bosnakca/ingilizce.pdf) göre dergi oldu.
@@ -40,16 +52,3 @@ devretmeye çalışıp hata verdi; proje bir kez `--force` ile oluşturuldu, son
 gerçek IP (DoH ile 172.66.x) da bağlanmadı. `pages.dev` Türkiye'de erişime kapalı görünüyor; Türkiye'deki okurlar
 açamayabilir. Canlı site bu yüzden buradan test edilemedi. Çözüm seçenekleri kullanıcıya soruldu: özel alan adı
 (Cloudflare Pages'e bağlanır) ya da başka barındırıcı (Netlify / GitHub Pages; `_headers` ve `_redirects` Netlify'da aynen çalışır).
-
-## 2026-10-27 (2) · Claude Code
-
-**Yapılan:** WhatsApp/Open Graph paylaşım kartı ve Cloudflare Pages yayın hazırlığı.
-- `src/layouts/Base.astro`: `og:type/url/site_name/image*`, `twitter:card`.
-- `astro.config.mjs`: `site` → `https://inkandyoung.pages.dev`.
-- `scripts/og-image.mjs` + `npm run og` → `public/og.png` (kapak ekran görüntüsü, menüsüz).
-- Kullanıcının makinesinde `npm install` yapıldı; `check` 0 hata, build 44 sayfa, `test:e2e` hepsi geçti.
-
-**Yarım kalan:** `wrangler login` zaman aşımına uğradı (kullanıcı tarayıcıda onaylamadı). Kullanıcı girişi yapınca:
-`npx wrangler pages deploy dist --project-name inkandyoung --branch main`. Proje adı alınmışsa farklı ad seç ve
-`astro.config.mjs` `site` değerini gerçek adresle değiştirip yeniden build et (og:image mutlak URL kullanıyor).
-Henüz git deposu yok.

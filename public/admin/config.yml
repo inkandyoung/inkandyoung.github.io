@@ -1,0 +1,168 @@
+# Yazı paneli (Sveltia CMS): https://mucahitdural-cyber.github.io/dergi/admin/
+# Kaydedilen her yazı GitHub deposuna commit olur; GitHub Actions siteyi birkaç dakikada yeniden yayınlar.
+backend:
+  name: github
+  repo: mucahitdural-cyber/dergi
+  branch: main
+  # No OAuth server on GitHub Pages: editors sign in with a GitHub access token.
+  auth_methods: [token]
+  commit_messages:
+    create: 'Yeni: {{collection}} "{{slug}}"'
+    update: 'Güncelleme: {{collection}} "{{slug}}"'
+    delete: 'Silindi: {{collection}} "{{slug}}"'
+
+app_title: ink & young · Yazı paneli
+site_url: https://mucahitdural-cyber.github.io/dergi/
+media_folder: public/uploads
+public_folder: /dergi/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+collections:
+  - name: yazilar-tr
+    label: 'Yazılar (Türkçe)'
+    label_singular: 'Yazı (Türkçe)'
+    folder: src/content/yazilar/tr
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{title}}'
+    summary: "{{title}} · {{date | date('DD.MM.YYYY')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Başlık, widget: string }
+      - { name: lang, label: Dil, widget: hidden, default: tr }
+      - name: category
+        label: Tür
+        widget: select
+        options:
+          - { label: 'Şiir', value: siir }
+          - { label: 'Öykü', value: oyku }
+          - { label: 'Deneme', value: deneme }
+          - { label: 'Sanat', value: sanat }
+          - { label: 'Kültür', value: kultur }
+      - name: author
+        label: Yazar
+        widget: relation
+        collection: yazarlar
+        value_field: '{{slug}}'
+        search_fields: [name]
+        display_fields: [name]
+        hint: Listede yoksa önce "Yazarlar" bölümünden yazarı ekleyin.
+      - { name: translator, label: Çevirmen, widget: string, required: false }
+      - { name: issue, label: Sayı, widget: number, value_type: int, default: 1, min: 1 }
+      - { name: date, label: Tarih, widget: datetime, time_format: false, format: YYYY-MM-DD, date_format: DD.MM.YYYY }
+      - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
+      - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
+      - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
+      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+  - name: yazilar-bs
+    label: 'Yazılar (Boşnakça)'
+    label_singular: 'Yazı (Boşnakça)'
+    folder: src/content/yazilar/bs
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{title}}'
+    summary: "{{title}} · {{date | date('DD.MM.YYYY')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Başlık, widget: string }
+      - { name: lang, label: Dil, widget: hidden, default: bs }
+      - name: category
+        label: Tür
+        widget: select
+        options:
+          - { label: 'Şiir', value: siir }
+          - { label: 'Öykü', value: oyku }
+          - { label: 'Deneme', value: deneme }
+          - { label: 'Sanat', value: sanat }
+          - { label: 'Kültür', value: kultur }
+      - name: author
+        label: Yazar
+        widget: relation
+        collection: yazarlar
+        value_field: '{{slug}}'
+        search_fields: [name]
+        display_fields: [name]
+        hint: Listede yoksa önce "Yazarlar" bölümünden yazarı ekleyin.
+      - { name: translator, label: Çevirmen, widget: string, required: false }
+      - { name: issue, label: Sayı, widget: number, value_type: int, default: 1, min: 1 }
+      - { name: date, label: Tarih, widget: datetime, time_format: false, format: YYYY-MM-DD, date_format: DD.MM.YYYY }
+      - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
+      - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
+      - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
+      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+  - name: yazilar-en
+    label: 'Yazılar (İngilizce)'
+    label_singular: 'Yazı (İngilizce)'
+    folder: src/content/yazilar/en
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{title}}'
+    summary: "{{title}} · {{date | date('DD.MM.YYYY')}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Başlık, widget: string }
+      - { name: lang, label: Dil, widget: hidden, default: en }
+      - name: category
+        label: Tür
+        widget: select
+        options:
+          - { label: 'Şiir', value: siir }
+          - { label: 'Öykü', value: oyku }
+          - { label: 'Deneme', value: deneme }
+          - { label: 'Sanat', value: sanat }
+          - { label: 'Kültür', value: kultur }
+      - name: author
+        label: Yazar
+        widget: relation
+        collection: yazarlar
+        value_field: '{{slug}}'
+        search_fields: [name]
+        display_fields: [name]
+        hint: Listede yoksa önce "Yazarlar" bölümünden yazarı ekleyin.
+      - { name: translator, label: Çevirmen, widget: string, required: false }
+      - { name: issue, label: Sayı, widget: number, value_type: int, default: 1, min: 1 }
+      - { name: date, label: Tarih, widget: datetime, time_format: false, format: YYYY-MM-DD, date_format: DD.MM.YYYY }
+      - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
+      - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
+      - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
+      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+
+  - name: yazarlar
+    label: Yazarlar
+    label_singular: Yazar
+    folder: src/content/yazarlar
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: name
+    slug: '{{name}}'
+    fields:
+      - { name: name, label: Ad Soyad, widget: string }
+      - { name: city, label: Şehir, widget: string }
+      - name: writes
+        label: Yazdığı diller
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - { label: Türkçe, value: tr }
+          - { label: Boşnakça, value: bs }
+          - { label: İngilizce, value: en }
+      - name: bio
+        label: Kısa özgeçmiş
+        widget: object
+        fields:
+          - { name: tr, label: Türkçe, widget: text }
+          - { name: bs, label: Boşnakça (yoksa boş bırakın), widget: text, required: false }
+          - { name: en, label: İngilizce (yoksa boş bırakın), widget: text, required: false }
