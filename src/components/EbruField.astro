@@ -1,0 +1,61 @@
+---
+/**
+ * The bare marbled sheet for an issue, as an SVG that fills its container.
+ * Used by the small cover (EbruCover) and the full-screen cover (IssueCover).
+ */
+import type { Issue } from '../lib/content';
+import { ebruId, ebruPattern } from '../lib/ebru';
+
+interface Props {
+  issue: Issue;
+  /** Animate the paint being combed out when the page loads. */
+  animate?: boolean;
+}
+
+const { issue, animate = false } = Astro.props;
+const { number, palette, seed } = issue.data;
+const { ground, bands, drops, freq, comb } = ebruPattern(palette, seed, number);
+const uid = ebruId(number);
+---
+
+<svg class="ebru" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id={`${uid}-a`} x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency={`${freq} ${(Number(freq) * 2).toFixed(4)}`} numOctaves="3" seed={seed} />
+      <feDisplacementMap in="SourceGraphic" scale="120" xChannelSelector="R" yChannelSelector="G" data-ebru-scale>
+        {animate && <animate attributeName="scale" from="0" to="120" dur="1.8s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.2 0.7 0.2 1" />}
+      </feDisplacementMap>
+    </filter>
+    <filter id={`${uid}-b`} x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="turbulence" baseFrequency={comb} numOctaves="2" seed={seed + 3} />
+      <feDisplacementMap in="SourceGraphic" scale="34" xChannelSelector="R" yChannelSelector="B" />
+    </filter>
+  </defs>
+  <g filter={`url(#${uid}-a)`}>
+    <rect x="-80" y="-80" width="460" height="560" fill={ground} />
+    <g filter={`url(#${uid}-b)`}>
+      {bands.map((b) => <rect x="-60" y={b.y} width="420" height={b.h} fill={b.fill} />)}
+      {drops.map((d) => <circle cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} />)}
+    </g>
+  </g>
+</svg>
+
+{
+  animate && (
+    <script>
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll<SVGAnimateElement>('[data-ebru-scale] animate').forEach((a) => a.beginElement());
+      }
+    </script>
+  )
+}
+
+<style>
+  .ebru {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>

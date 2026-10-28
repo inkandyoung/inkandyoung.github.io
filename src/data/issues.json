@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1",
+    "number": 1,
+    "date": "2026-10-01",
+    "title": { "tr": "Sınır ve Su", "bs": "Granica i voda", "en": "Border and Water" },
+    "intro": {
+      "tr": "Bu sayıda Drina'dan Boğaz'a uzanan suların kıyısında yazılmış şiirleri, öyküleri ve denemeleri bir araya getirdik.",
+      "bs": "U ovom broju sabrali smo pjesme, priče i eseje pisane na obalama voda koje se protežu od Drine do Bosfora.",
+      "en": "This issue gathers poems, stories and essays written on the banks of the waters that run from the Drina to the Bosphorus."
+    },
+    "palette": ["#1C2340", "#2B7A78", "#E9DCC0", "#A3302A", "#C99A3B"],
+    "seed": 7
+  }
+]

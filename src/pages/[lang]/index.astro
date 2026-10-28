@@ -1,0 +1,13 @@
+---
+import Magazine from '../../views/Magazine.astro';
+import { langs } from '../../i18n/ui';
+import { getLang } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLang(Astro.params.lang);
+---
+
+<Magazine lang={lang} />

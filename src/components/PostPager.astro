@@ -1,0 +1,77 @@
+---
+/** Previous and next piece in the issue's page order, like turning the page. */
+import type { Lang } from '../i18n/ui';
+import { localPath, useTranslations } from '../i18n/utils';
+import { postSlug, type Post } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  prev?: Post;
+  next?: Post;
+}
+
+const { lang, prev, next } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{
+  (prev || next) && (
+    <nav class="pager" aria-label={t('post.pager')}>
+      {prev ? (
+        <a class="prev" href={localPath(lang, 'posts', postSlug(prev))} rel="prev">
+          <span class="dir">← {t('post.prev')}</span>
+          <span class="name" lang={prev.data.lang}>{prev.data.title}</span>
+          {prev.data.page && <span class="pg">{t('post.page', { n: prev.data.page })}</span>}
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a class="next" href={localPath(lang, 'posts', postSlug(next))} rel="next">
+          <span class="dir">{t('post.next')} →</span>
+          <span class="name" lang={next.data.lang}>{next.data.title}</span>
+          {next.data.page && <span class="pg">{t('post.page', { n: next.data.page })}</span>}
+        </a>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    border-block: 1px solid var(--rule-strong);
+  }
+  a {
+    display: grid;
+    align-content: start;
+    gap: 2px;
+    padding: 16px 0 18px;
+    text-decoration: none;
+  }
+  .next {
+    text-align: right;
+  }
+  .dir {
+    font-size: var(--step--1);
+    color: var(--red);
+    letter-spacing: 0.02em;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.15;
+  }
+  a:hover .name {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  .pg {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+</style>

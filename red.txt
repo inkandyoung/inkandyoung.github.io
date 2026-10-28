@@ -1,0 +1,4 @@
+Bu dosyanin icerigi docs/PROJECT_STATE.md dosyasina tasindi (2026-10-27).
+Guncel durum: docs/PROJECT_STATE.md
+Siradaki is: docs/AI_HANDOFF.md
+Kurallar: AGENTS.md

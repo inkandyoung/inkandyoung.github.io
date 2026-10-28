@@ -1,0 +1,202 @@
+---
+import Base from '../layouts/Base.astro';
+import PostItem from '../components/PostItem.astro';
+import { categoryKeys, langs, type Lang } from '../i18n/ui';
+import { alternatesFor, categoryLabel, useTranslations } from '../i18n/utils';
+import { getAuthorMap, getPosts } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const posts = await getPosts();
+const authors = await getAuthorMap();
+---
+
+<Base lang={lang} current="posts" title={t('posts.title')} description={t('posts.intro')} alternates={alternatesFor('posts')}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t('posts.title')}</h1>
+      <p>{t('posts.intro')}</p>
+    </header>
+
+    <!-- Filters need JavaScript; without it every piece is listed. -->
+    <div class="filters" data-filters hidden>
+      <div class="group" role="group" aria-labelledby="f-cat">
+        <span class="group-label" id="f-cat">{t('posts.filter.category')}</span>
+        <button type="button" data-filter="category" data-value="" aria-pressed="true">{t('posts.filter.all')}</button>
+        {
+          categoryKeys.map((key) => (
+            <button type="button" data-filter="category" data-value={key} aria-pressed="false">
+              {categoryLabel(key, lang)}
+            </button>
+          ))
+        }
+      </div>
+      <div class="group" role="group" aria-labelledby="f-lang">
+        <span class="group-label" id="f-lang">{t('posts.filter.language')}</span>
+        <button type="button" data-filter="lang" data-value="" aria-pressed="true">{t('posts.filter.all')}</button>
+        {
+          langs.map((l) => (
+            <button type="button" data-filter="lang" data-value={l} aria-pressed="false" lang={l}>
+              {l.toUpperCase()}
+              <span class="visually-hidden">, {t(`lang.${l}`)}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="count meta" aria-live="polite" data-count data-template={t('posts.count', { n: '{n}' })}>
+      {t('posts.count', { n: posts.length })}
+    </p>
+
+    <ol class="list" data-list>
+      {
+        posts.map((post) => (
+          <li data-category={post.data.category} data-lang={post.data.lang}>
+            <PostItem lang={lang} post={post} author={authors.get(post.data.author.id)} headingLevel="h2" />
+          </li>
+        ))
+      }
+    </ol>
+    <p class="empty" data-empty hidden>{t('posts.empty')}</p>
+  </div>
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-filters]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-list] > li')];
+  const count = document.querySelector<HTMLElement>('[data-count]')!;
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+
+  if (root) {
+    root.hidden = false;
+    const params = new URLSearchParams(location.search);
+    const state: Record<'category' | 'lang', string> = {
+      category: params.get('kategori') ?? '',
+      lang: params.get('dil') ?? '',
+    };
+
+    const apply = (updateUrl: boolean) => {
+      let shown = 0;
+      for (const item of items) {
+        const match =
+          (!state.category || item.dataset.category === state.category) && (!state.lang || item.dataset.lang === state.lang);
+        item.hidden = !match;
+        if (match) shown++;
+      }
+      root.querySelectorAll<HTMLButtonElement>('button[data-filter]').forEach((b) => {
+        b.setAttribute('aria-pressed', String(state[b.dataset.filter as 'category' | 'lang'] === b.dataset.value));
+      });
+      count.textContent = count.dataset.template!.replace('{n}', String(shown));
+      empty.hidden = shown > 0;
+
+      if (updateUrl) {
+        const next = new URLSearchParams();
+        if (state.category) next.set('kategori', state.category);
+        if (state.lang) next.set('dil', state.lang);
+        const query = next.toString();
+        history.replaceState(null, '', query ? `?${query}` : location.pathname);
+      }
+    };
+
+    root.addEventListener('click', (event) => {
+      const button = (event.target as Element).closest<HTMLButtonElement>('button[data-filter]');
+      if (!button) return;
+      state[button.dataset.filter as 'category' | 'lang'] = button.dataset.value ?? '';
+      apply(true);
+    });
+
+    apply(false);
+  }
+</script>
+
+<style>
+  .filters {
+    display: grid;
+    gap: 14px;
+    padding-block: 28px 8px;
+  }
+  .filters[hidden] {
+    display: none;
+  }
+  .group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .group-label {
+    flex-basis: 100%;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+  button {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-height: 44px;
+    padding: 9px 16px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--step--1);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  button:hover {
+    border-color: var(--ink);
+  }
+  button[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+  .count {
+    padding-block: 20px 0;
+  }
+
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule-strong);
+    margin-top: 12px;
+  }
+  .list > li {
+    padding-block: 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .list > li[hidden] {
+    display: none;
+  }
+  .empty {
+    padding-block: 40px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .empty[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 760px) {
+    .group-label {
+      flex-basis: 8.5em;
+    }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(32px, 5vw, 72px);
+      border-top: 0;
+    }
+    .list > li {
+      border-top: 1px solid var(--rule-strong);
+      border-bottom: 0;
+    }
+  }
+</style>

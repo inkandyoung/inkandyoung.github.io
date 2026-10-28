@@ -1,0 +1,692 @@
+---
+/**
+ * "Vapur Düdüğü" (Işıl Güçlü): the poem read against the bay at dusk.
+ *
+ * The scene is drawn from the poem itself: the 19.45 ferry coming in "like a
+ * tired swan", gulls, the horn that silences the bay, the lights of Alsancak
+ * coming on and trembling on the water as "a yellow alphabet" (ğ, ş, ı), the
+ * same bench, the same wind. Each stanza moves the scene one step on. The
+ * poem's text comes from the Markdown file untouched (default slot); the
+ * scene is decoration and is hidden from assistive technology except for a
+ * one-line description.
+ */
+import type { Lang } from '../i18n/ui';
+import { categoryLabel, localPath, useTranslations } from '../i18n/utils';
+import type { Author, Issue, Post } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+  author: Author;
+  issue?: Issue;
+}
+
+const { lang, post, author, issue } = Astro.props;
+const t = useTranslations(lang);
+const foreign = post.data.lang !== lang;
+// Only used to size the stanza navigator; the text itself is rendered from Markdown.
+const stanzaCount = (post.body ?? '').trim().split(/\n\s*\n/).length;
+
+// A fixed seed, so the far shore is the same on every build.
+let s = 19_45;
+const rand = () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
+
+const horizon = 600;
+const buildings: { x: number; w: number; h: number }[] = [];
+for (let x = 430; x < 1640; ) {
+  const w = 16 + Math.round(rand() * 38);
+  buildings.push({ x, w, h: 12 + Math.round(rand() * (x > 900 && x < 1250 ? 78 : 46)) });
+  x += w + Math.round(rand() * 4);
+}
+const lights = buildings.flatMap((b, i) =>
+  Array.from({ length: 1 + Math.floor(rand() * 3) }, (_, j) => ({
+    x: b.x + 3 + Math.round(rand() * (b.w - 8)),
+    y: horizon - 5 - Math.round(rand() * (b.h - 9)),
+    d: (i * 3 + j) % 24,
+  })),
+);
+// The yellow alphabet: letters the poem names first, then the rest of its unspoken sounds.
+const alphabet = 'ğşıöüçaeıoğşiuı'.split('');
+const reflections = lights
+  .filter((_, i) => i % 3 === 0)
+  .map((l, i) => ({ x: l.x, y: horizon + 30 + ((i * 37) % 120), ch: alphabet[i % alphabet.length], d: l.d }));
+const ripples = Array.from({ length: 22 }, (_, i) => ({
+  y: horizon + 14 + i * i * 0.85,
+  x: Math.round(rand() * 900) - 100,
+  w: 200 + Math.round(rand() * 700),
+}));
+---
+
+<article class="vapur" lang={post.data.lang} data-stage="0">
+  <div class="scene-track">
+  <div class="scene" role="img" aria-label={t('poem.scene')} lang={lang}>
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="vd-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1c2340" />
+          <stop offset="0.45" stop-color="#2d4a63" />
+          <stop offset="0.8" stop-color="#b98a4a" />
+          <stop offset="1" stop-color="#e2b764" />
+        </linearGradient>
+        <linearGradient id="vd-sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3a5a68" />
+          <stop offset="0.35" stop-color="#1f3b4a" />
+          <stop offset="1" stop-color="#121a30" />
+        </linearGradient>
+        <radialGradient id="vd-glow">
+          <stop offset="0" stop-color="#f3d08a" stop-opacity="0.9" />
+          <stop offset="1" stop-color="#f3d08a" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <rect width="1600" height={horizon} fill="url(#vd-sky)" />
+      <ellipse class="sun" cx="1080" cy={horizon} rx="420" ry="120" fill="url(#vd-glow)" />
+      <rect y={horizon} width="1600" height={1000 - horizon} fill="url(#vd-sea)" />
+      <g class="ripples" stroke="#e9dcc0" stroke-linecap="round">
+        {ripples.map((r, i) => <line x1={r.x} x2={r.x + r.w} y1={r.y} y2={r.y} stroke-width={0.6 + i * 0.09} />)}
+      </g>
+      <rect class="dusk" width="1600" height="1000" fill="#0b1022" />
+
+      <g class="shore" fill="#141b33">
+        <rect x="380" y={horizon - 6} width="1240" height="8" />
+        {buildings.map((b) => <rect x={b.x} y={horizon - b.h} width={b.w} height={b.h} />)}
+      </g>
+      <g class="lights" fill="#f2c96b">
+        {lights.map((l) => <rect class="lit" x={l.x} y={l.y} width="3" height="4" style={`--d:${l.d}`} />)}
+      </g>
+      <g class="alphabet" fill="#f2c96b" font-family="Gloock, Georgia, serif" font-size="30" text-anchor="middle">
+        {
+          reflections.map((r) => (
+            <text x={r.x} y={r.y} style={`--d:${r.d}`}>
+              {r.ch}
+            </text>
+          ))
+        }
+      </g>
+
+      <g class="gulls" fill="none" stroke="#e9dcc0" stroke-width="3" stroke-linecap="round">
+        <path d="M1060 330q14-12 26 0q12-12 26 0" />
+        <path d="M1150 290q10-9 19 0q9-9 19 0" />
+        <path d="M990 380q8-7 15 0q7-7 15 0" />
+      </g>
+
+      <g class="ferry">
+        <g class="rings" fill="none" stroke="#f3e6c8" stroke-width="3">
+          <circle cx="212" cy="-96" r="12" />
+          <circle cx="212" cy="-96" r="12" />
+          <circle cx="212" cy="-96" r="12" />
+        </g>
+        <rect x="200" y="-96" width="26" height="36" fill="#a3302a" />
+        <rect x="200" y="-100" width="26" height="8" fill="#0f1428" />
+        <line x1="110" y1="-62" x2="110" y2="-112" stroke="#0f1428" stroke-width="3" />
+        <rect x="64" y="-64" width="210" height="24" fill="#e9e4d6" />
+        <rect x="22" y="-42" width="306" height="26" fill="#f1ede2" />
+        <path d="M0-18 22 2H328L352-22Z" fill="#141b33" />
+        <rect x="16" y="-20" width="320" height="4" fill="#a3302a" />
+        <g class="windows" fill="#f2c96b">
+          {Array.from({ length: 14 }, (_, i) => <rect x={34 + i * 20} y="-35" width="11" height="10" />)}
+          {Array.from({ length: 9 }, (_, i) => <rect x={78 + i * 21} y="-58" width="11" height="10" />)}
+        </g>
+      </g>
+
+      <g class="pier" fill="#0e1428">
+        <path d="M-20 668H430l10 14H-20Z" />
+        {[30, 110, 190, 270, 350, 420].map((x) => <rect x={x} y="680" width="9" height="110" />)}
+        <rect x="372" y="560" width="5" height="110" />
+        <rect x="360" y="554" width="30" height="8" />
+        <g class="bench">
+          <rect x="140" y="636" width="96" height="7" />
+          <rect x="140" y="616" width="96" height="6" />
+          <rect x="146" y="643" width="5" height="25" />
+          <rect x="226" y="643" width="5" height="25" />
+        </g>
+      </g>
+      <circle class="lamp" cx="375" cy="568" r="70" fill="url(#vd-glow)" />
+    </svg>
+  </div>
+  </div>
+
+  <header class="opening">
+    <div class="opening-inner">
+      <p class="kicker" lang={lang}>
+        <a href={`${localPath(lang, 'posts')}?kategori=${post.data.category}`}>{categoryLabel(post.data.category, lang)}</a>
+        {post.data.page && <span>{t('post.page', { n: post.data.page })}</span>}
+        {issue && <span>{t('issue.label', { n: issue.data.number })}, {issue.data.title[lang]}</span>}
+      </p>
+      <h1>{post.data.title}</h1>
+      <p class="byline" lang={lang}>
+        <a href={`${localPath(lang, 'authors')}#${author.id}`}>{author.data.name}</a>
+        {post.data.translator && <span>{t('post.translator')}: {post.data.translator}</span>}
+      </p>
+      {foreign && <p class="note" lang={lang}>{t('post.lang.note', { lang: t(`lang.in.${post.data.lang}`) })}</p>}
+      <p class="horn-row" lang={lang} hidden data-horn-row>
+        <button type="button" class="horn" data-horn>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M4 9v6h4l5 4V5L8 9Z" fill="currentColor" />
+            <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+          {t('poem.horn')}
+        </button>
+        <span class="horn-note">{t('poem.horn.note')}</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="verses">
+    <slot />
+  </div>
+
+  <nav class="stanza-nav" aria-label={t('poem.stanzas')} lang={lang} hidden>
+    <button type="button" data-step="-1" aria-label={t('post.prev')}>↑</button>
+    <ol>
+      {
+        Array.from({ length: stanzaCount }, (_, i) => (
+          <li>
+            <a href={`#kita-${i + 1}`} aria-label={t('poem.stanza', { n: i + 1 })}>
+              {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][i] ?? i + 1}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <button type="button" data-step="1" aria-label={t('post.next')}>↓</button>
+  </nav>
+</article>
+
+<div class="wrap after">
+  <slot name="end" />
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('.vapur');
+  if (root) {
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const opening = root.querySelector<HTMLElement>('.opening')!;
+    const verses = [...root.querySelectorAll<HTMLElement>('.verses > p')];
+    const nav = root.querySelector<HTMLElement>('.stanza-nav')!;
+    const links = [...nav.querySelectorAll<HTMLAnchorElement>('a')];
+    const [prevBtn, nextBtn] = nav.querySelectorAll<HTMLButtonElement>('button');
+    let stage = 0;
+    let rangOnce = false;
+
+    verses.forEach((p, i) => {
+      p.id = `kita-${i + 1}`;
+      p.tabIndex = -1;
+      // One block per line, so a line that wraps on a narrow screen hangs under itself
+      // instead of passing for a new line. Only the markup changes, never the words.
+      if (p.innerHTML.includes('\n')) {
+        p.innerHTML = p.innerHTML
+          .split('\n')
+          .map((line) => `<span class="line">${line}</span>`)
+          .join('');
+        p.classList.add('lined');
+      }
+    });
+
+    const blow = () => {
+      root.classList.remove('blowing');
+      void root.offsetWidth; // restart the rings
+      root.classList.add('blowing');
+      window.setTimeout(() => root.classList.remove('blowing'), 2600);
+    };
+
+    const setStage = (n: number) => {
+      if (n === stage) return;
+      stage = n;
+      root.dataset.stage = String(n);
+      links.forEach((a, i) => (i + 1 === n ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
+      prevBtn.disabled = n <= 1;
+      nextBtn.disabled = n >= verses.length;
+      // The second stanza is the horn: the scene answers once, silently.
+      if (n === 2 && !rangOnce) {
+        rangOnce = true;
+        blow();
+      }
+    };
+
+    // A stanza becomes current when it crosses the middle of the screen.
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setStage(e.target === opening ? 0 : verses.indexOf(e.target as HTMLElement) + 1);
+      },
+      { rootMargin: '-50% 0px -50% 0px' },
+    );
+    [opening, ...verses].forEach((el) => watch.observe(el));
+
+    nav.hidden = false;
+    const versesBox = root.querySelector('.verses')!;
+    new IntersectionObserver(([e]) => nav.classList.toggle('on', e.isIntersecting), { rootMargin: '-30% 0px -30% 0px' }).observe(versesBox);
+
+    const go = (n: number) => {
+      const target = verses[Math.min(Math.max(n, 1), verses.length) - 1];
+      target.scrollIntoView({ block: 'center', behavior: reduce.matches ? 'auto' : 'smooth' });
+      target.focus({ preventScroll: true });
+    };
+    prevBtn.addEventListener('click', () => go(stage - 1));
+    nextBtn.addEventListener('click', () => go(stage + 1));
+    links.forEach((a, i) =>
+      a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        go(i + 1);
+        history.replaceState(null, '', a.hash);
+      }),
+    );
+
+    // The horn is synthesised: two low, slightly detuned tones through a soft filter.
+    const hornRow = root.querySelector<HTMLElement>('[data-horn-row]')!;
+    const AudioCtx = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (AudioCtx) {
+      hornRow.hidden = false;
+      let ctx: AudioContext | undefined;
+      root.querySelector('[data-horn]')!.addEventListener('click', () => {
+        ctx ??= new AudioCtx();
+        const now = ctx.currentTime;
+        const gain = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 520;
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.22, now + 0.18);
+        gain.gain.setValueAtTime(0.22, now + 1.7);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.5);
+        filter.connect(gain).connect(ctx.destination);
+        for (const f of [98, 123.5, 196.4]) {
+          const osc = ctx.createOscillator();
+          osc.type = 'sawtooth';
+          osc.frequency.value = f;
+          osc.connect(filter);
+          osc.start(now);
+          osc.stop(now + 2.6);
+        }
+        blow();
+      });
+    }
+  }
+</script>
+
+<style>
+  .vapur {
+    --night: #0e1326;
+    --lamp: #f2c96b;
+    position: relative;
+    background: var(--night);
+    color: var(--cover-paper);
+  }
+
+  /* The scene stays put while the poem scrolls over it, and leaves with the poem's end. */
+  .scene-track {
+    position: absolute;
+    inset: 0;
+  }
+  .scene {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+  }
+  .scene svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .opening {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-content: start;
+    padding: clamp(48px, 12vh, 140px) var(--gutter) 0;
+    background: linear-gradient(to bottom, rgb(11 16 34 / 0.55), transparent 55%);
+  }
+  .opening-inner {
+    max-width: var(--wrap);
+    width: 100%;
+    margin-inline: auto;
+  }
+  .kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    color: rgb(248 248 243 / 0.82);
+  }
+  .kicker a {
+    color: var(--lamp);
+    text-decoration: none;
+  }
+  .kicker a:hover {
+    text-decoration: underline;
+  }
+  h1 {
+    font-size: clamp(3.6rem, 2rem + 9vw, 10.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    max-width: 8em;
+    margin-bottom: 0.25em;
+    text-shadow: 0 2px 30px rgb(11 16 34 / 0.5);
+  }
+  .byline {
+    font-size: var(--step-2);
+    font-style: italic;
+  }
+  .byline a {
+    text-decoration-color: rgb(248 248 243 / 0.4);
+  }
+  .byline span {
+    margin-left: 18px;
+    font-size: var(--step-0);
+  }
+  .note {
+    margin-top: 10px;
+    font-style: italic;
+    color: rgb(248 248 243 / 0.8);
+  }
+  .horn-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin-top: 26px;
+  }
+  .horn-row[hidden] {
+    display: none;
+  }
+  .horn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 18px 0 14px;
+    border: 1px solid rgb(248 248 243 / 0.55);
+    background: rgb(11 16 34 / 0.35);
+    color: var(--cover-paper);
+    font: inherit;
+    font-size: var(--step--1);
+    letter-spacing: 0.03em;
+    cursor: pointer;
+  }
+  .horn:hover {
+    background: var(--cover-paper);
+    color: var(--ink);
+  }
+  .horn-note {
+    font-size: 0.8rem;
+    color: rgb(248 248 243 / 0.7);
+  }
+  .vapur :focus-visible {
+    outline-color: var(--lamp);
+  }
+
+  /* Each stanza is a sheet of paper laid on the water. */
+  .verses {
+    position: relative;
+    counter-reset: stanza;
+    padding: 30svh var(--gutter) 40svh;
+  }
+  .verses :global(p) {
+    counter-increment: stanza;
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 55svh;
+    padding: clamp(22px, 4vw, 40px) clamp(22px, 4.5vw, 52px) clamp(24px, 4vw, 42px);
+    background: rgb(248 248 243 / 0.95);
+    color: var(--ink);
+    font-size: clamp(1.06rem, 0.98rem + 0.4vw, 1.3rem);
+    line-height: 1.75;
+    white-space: pre-line;
+    hyphens: manual;
+    box-shadow: 0 30px 50px -30px rgb(0 0 0 / 0.7);
+    scroll-margin: 20svh;
+  }
+  .verses :global(.lined) {
+    white-space: normal;
+  }
+  .verses :global(.line) {
+    display: block;
+    padding-left: 1.3em;
+    text-indent: -1.3em;
+  }
+  .verses :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .verses :global(p)::before {
+    content: counter(stanza, upper-roman);
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.6em;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 0.5em;
+  }
+  .verses :global(p:focus-visible) {
+    outline: 2px solid var(--lamp);
+    outline-offset: 4px;
+  }
+
+  /* Stanza navigator: bottom bar on phones, a column at the right edge on wide screens. */
+  .stanza-nav {
+    position: fixed;
+    z-index: 5;
+    left: 50%;
+    bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    background: rgb(11 16 34 / 0.82);
+    border: 1px solid rgb(248 248 243 / 0.25);
+    backdrop-filter: blur(6px);
+    transform: translate(-50%, 140%);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      transform 0.35s ease,
+      opacity 0.35s ease,
+      visibility 0s 0.35s;
+  }
+  .stanza-nav[hidden] {
+    display: none;
+  }
+  .stanza-nav:global(.on) {
+    transform: translate(-50%, 0);
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .stanza-nav ol {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .stanza-nav a,
+  .stanza-nav button {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 6px;
+    border: 0;
+    background: none;
+    color: rgb(248 248 243 / 0.75);
+    font: inherit;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .stanza-nav a[aria-current] {
+    color: var(--ink);
+    background: var(--lamp);
+  }
+  .stanza-nav a:hover,
+  .stanza-nav button:hover:not(:disabled) {
+    color: var(--cover-paper);
+    background: rgb(248 248 243 / 0.12);
+  }
+  .stanza-nav button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .after {
+    padding-block: clamp(24px, 5vw, 56px) 24px;
+  }
+  .after :global(.end) {
+    margin-inline: auto;
+  }
+
+  @media (min-width: 900px) {
+    /* Cards keep to the right, leaving the pier on the left for the ferry to reach. */
+    .verses :global(p) {
+      margin-right: clamp(70px, 9vw, 160px);
+    }
+    .stanza-nav {
+      left: auto;
+      right: 20px;
+      bottom: 50%;
+      flex-direction: column;
+      transform: translate(140%, 50%);
+    }
+    .stanza-nav:global(.on) {
+      transform: translate(0, 50%);
+    }
+    .stanza-nav ol {
+      flex-direction: column;
+    }
+  }
+
+  /* ---- The scene, stage by stage (data-stage: 0 opening, 1–4 stanzas) ---- */
+  .ripples {
+    opacity: 0.2;
+  }
+  .dusk {
+    opacity: 0;
+  }
+  .sun {
+    opacity: 0.9;
+  }
+  .lit,
+  .alphabet text,
+  .lamp,
+  .windows {
+    opacity: 0;
+  }
+  .ferry {
+    transform: translate(1260px, 606px) scale(0.42);
+  }
+  .rings circle {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .vapur[data-stage='1'] .ferry {
+    transform: translate(640px, 630px) scale(0.68);
+  }
+  .vapur[data-stage='2'] .ferry {
+    transform: translate(520px, 652px) scale(0.8);
+  }
+  .vapur[data-stage='3'] .ferry {
+    transform: translate(480px, 672px) scale(0.92);
+  }
+  .vapur[data-stage='4'] .ferry {
+    transform: translate(420px, 690px) scale(1);
+  }
+  .vapur[data-stage='1'] .dusk {
+    opacity: 0.12;
+  }
+  .vapur[data-stage='2'] .dusk {
+    opacity: 0.32;
+  }
+  .vapur[data-stage='3'] .dusk {
+    opacity: 0.5;
+  }
+  .vapur[data-stage='4'] .dusk {
+    opacity: 0.62;
+  }
+  .vapur:not([data-stage='0']):not([data-stage='1']) .sun {
+    opacity: 0.25;
+  }
+  .vapur:not([data-stage='0']) .gulls {
+    opacity: 0;
+  }
+  .vapur:not([data-stage='0']):not([data-stage='1']) .windows {
+    opacity: 1;
+  }
+  .vapur[data-stage='3'] .lit,
+  .vapur[data-stage='4'] .lit,
+  .vapur[data-stage='3'] .lamp,
+  .vapur[data-stage='4'] .lamp {
+    opacity: 1;
+  }
+  .vapur[data-stage='3'] .alphabet text,
+  .vapur[data-stage='4'] .alphabet text {
+    opacity: 0.8;
+  }
+  .vapur[data-stage='4'] .alphabet text {
+    opacity: 0.45;
+  }
+  .vapur:global(.blowing) .rings circle {
+    animation: ring 2.4s ease-out both;
+  }
+  .vapur:global(.blowing) .rings circle:nth-child(2) {
+    animation-delay: 0.35s;
+  }
+  .vapur:global(.blowing) .rings circle:nth-child(3) {
+    animation-delay: 0.7s;
+  }
+  @keyframes ring {
+    from {
+      opacity: 0.85;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(12);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .ferry {
+      transition: transform 2.2s cubic-bezier(0.3, 0.6, 0.2, 1);
+    }
+    .dusk,
+    .sun,
+    .gulls,
+    .windows,
+    .lamp {
+      transition: opacity 1.6s ease;
+    }
+    .lit,
+    .alphabet text {
+      transition: opacity 0.6s ease;
+      transition-delay: calc(var(--d) * 70ms);
+    }
+    .vapur[data-stage='3'] .alphabet text,
+    .vapur[data-stage='4'] .alphabet text {
+      animation: tremble 3.2s ease-in-out infinite alternate;
+      animation-delay: calc(var(--d) * -170ms);
+    }
+    .gulls path {
+      animation: glide 6s ease-in-out infinite alternate;
+    }
+  }
+  @keyframes tremble {
+    to {
+      transform: translate(3px, 1px) scaleY(0.82);
+    }
+  }
+  @keyframes glide {
+    to {
+      transform: translate(-30px, 8px);
+    }
+  }
+  .alphabet text {
+    transform-box: fill-box;
+    transform-origin: center top;
+  }
+</style>

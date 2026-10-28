@@ -1,0 +1,139 @@
+---
+import type { Lang } from '../i18n/ui';
+import { categoryLabel, localPath, useTranslations } from '../i18n/utils';
+import { postSlug, type Author, type Post } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+  author?: Author;
+  /** lead: the large opening piece; default: a row in a list. */
+  size?: 'lead' | 'default';
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { lang, post, author, size = 'default', headingLevel: H = 'h3' } = Astro.props;
+const t = useTranslations(lang);
+const { title, category, excerpt, issue } = post.data;
+const foreign = post.data.lang !== lang;
+---
+
+<article class:list={['item', size]} data-category={category} data-lang={post.data.lang}>
+  <p class="kicker">
+    <span class="cat">{categoryLabel(category, lang)}</span>
+    {foreign && <span class="tongue">{t(`lang.${post.data.lang}`)}</span>}
+  </p>
+  <H class="title" lang={post.data.lang}>
+    <a href={localPath(lang, 'posts', postSlug(post))}>{title}</a>
+  </H>
+  <p class="excerpt" lang={post.data.lang}>{excerpt}</p>
+  <p class="byline">
+    {author && <span class="author">{author.data.name}</span>}
+    <span class="issue">{t('issue.label', { n: issue })}</span>
+  </p>
+</article>
+
+<style>
+  .item {
+    position: relative;
+  }
+  .kicker {
+    display: flex;
+    gap: 12px;
+    font-size: var(--step--1);
+    margin-bottom: 6px;
+  }
+  .cat {
+    color: var(--turquoise);
+  }
+  .tongue {
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .title {
+    font-size: var(--step-3);
+    margin-bottom: 10px;
+  }
+  .title a {
+    text-decoration: none;
+  }
+  .title a::after {
+    /* Whole item is clickable, the link stays the title. */
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .item:hover .title a {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }
+  .title a:focus-visible {
+    outline: none;
+  }
+  .item:has(.title a:focus-visible) {
+    outline: 2px solid var(--red);
+    outline-offset: 6px;
+  }
+  .excerpt {
+    max-width: 36em;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+  .author {
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .lead .title {
+    font-size: var(--step-5);
+    margin-bottom: 18px;
+  }
+  .lead .excerpt {
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+  @media (min-width: 900px) {
+    .lead {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: clamp(32px, 5vw, 72px);
+      align-items: end;
+    }
+    .lead .kicker,
+    .lead .title {
+      grid-column: 1;
+    }
+    .lead .title {
+      margin-bottom: 0;
+    }
+    .lead .excerpt,
+    .lead .byline {
+      grid-column: 2;
+    }
+    .lead .excerpt {
+      grid-row: 1 / span 2;
+      align-self: end;
+      margin-bottom: 0;
+    }
+    .lead .byline {
+      grid-row: 3;
+      margin-top: 12px;
+    }
+  }
+  .lead .excerpt::first-letter {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 3.4em;
+    line-height: 0.85;
+    padding: 0.05em 0.08em 0 0;
+    color: var(--red);
+  }
+</style>

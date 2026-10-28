@@ -1,0 +1,101 @@
+[
+  {
+    "id": "isil-guclu",
+    "name": "Işıl Güçlü",
+    "city": "İzmir",
+    "writes": ["tr"],
+    "bio": {
+      "tr": "1994'te İzmir'de doğdu. Şiirleri çeşitli dergilerde yayımlandı. Körfez kıyısında, vapur saatlerine göre yaşıyor.",
+      "bs": "Rođena 1994. u Izmiru. Pjesme su joj objavljivane u raznim časopisima. Živi na obali zaljeva, po redu vožnje trajekata.",
+      "en": "Born in İzmir in 1994. Her poems have appeared in a number of magazines. She lives on the bay, by the ferry timetable."
+    }
+  },
+  {
+    "id": "omer-caglar",
+    "name": "Ömer Çağlar",
+    "city": "İstanbul",
+    "writes": ["tr", "bs"],
+    "bio": {
+      "tr": "Çevirmen ve deneme yazarı. Boşnak edebiyatından Türkçeye çeviriler yapıyor; Saraybosna ile İstanbul arasında gidip geliyor.",
+      "bs": "Prevodilac i esejista. Prevodi bosansku književnost na turski i živi na relaciji Sarajevo–Istanbul.",
+      "en": "Translator and essayist. He translates Bosnian literature into Turkish and divides his time between Sarajevo and Istanbul."
+    }
+  },
+  {
+    "id": "sule-doganay",
+    "name": "Şule Doğanay",
+    "city": "Eskişehir",
+    "writes": ["tr"],
+    "bio": {
+      "tr": "Öykü yazıyor, ortaokulda Türkçe öğretiyor. İlk öykü kitabı üzerinde çalışıyor.",
+      "bs": "Piše priče i predaje turski jezik u osnovnoj školi. Radi na svojoj prvoj zbirci priča.",
+      "en": "She writes short fiction and teaches Turkish at a middle school. She is working on her first collection."
+    }
+  },
+  {
+    "id": "durda-sehic",
+    "name": "Đurđa Šehić",
+    "city": "Višegrad",
+    "writes": ["bs"],
+    "bio": {
+      "tr": "Vişegrad'da doğdu, Saraybosna'da edebiyat okudu. Drina kıyısındaki küçük kasabaları anlatan öyküler yazıyor.",
+      "bs": "Rođena u Višegradu, studirala književnost u Sarajevu. Piše priče o malim mjestima na obalama Drine.",
+      "en": "Born in Višegrad, she studied literature in Sarajevo. She writes stories about the small towns along the Drina."
+    }
+  },
+  {
+    "id": "emina-hadzic",
+    "name": "Emina Hadžić",
+    "city": "Sarajevo",
+    "writes": ["bs", "tr"],
+    "bio": {
+      "tr": "Şair ve çevirmen. Çocukluğu Bursa'da, gençliği Saraybosna'da geçti; iki dilde de yazıyor.",
+      "bs": "Pjesnikinja i prevoditeljica. Djetinjstvo je provela u Bursi, mladost u Sarajevu; piše na oba jezika.",
+      "en": "Poet and translator. She spent her childhood in Bursa and her youth in Sarajevo, and writes in both languages."
+    }
+  },
+  {
+    "id": "mirza-kovacevic",
+    "name": "Mirza Kovačević",
+    "city": "Mostar",
+    "writes": ["bs", "en"],
+    "bio": {
+      "tr": "Sanat tarihçisi. Balkanlar'daki Osmanlı kitap sanatları, özellikle ebru ve cilt üzerine çalışıyor.",
+      "bs": "Historičar umjetnosti. Bavi se osmanskom umjetnošću knjige na Balkanu, posebno ebruom i povezom.",
+      "en": "Art historian. He researches Ottoman book arts in the Balkans, especially marbling and bookbinding."
+    }
+  },
+  {
+    "id": "hana-lindqvist",
+    "name": "Hana Lindqvist",
+    "city": "London",
+    "writes": ["en", "bs"],
+    "bio": {
+      "tr": "Boşnak bir annenin ve İsveçli bir babanın kızı. Londra'da müzik ve göç üzerine yazıyor.",
+      "bs": "Kći majke Bosanke i oca Šveđanina. U Londonu piše o muzici i migraciji.",
+      "en": "Daughter of a Bosnian mother and a Swedish father. She writes about music and migration from London."
+    }
+  },
+  {
+    "id": "theo-marlow",
+    "name": "Theo Marlow",
+    "city": "Bristol",
+    "writes": ["en"],
+    "bio": {
+      "tr": "Seramik sanatçısı ve yazar. İznik ve Delft çinileri arasındaki akrabalığı araştırıyor.",
+      "bs": "Keramičar i pisac. Istražuje srodnost između keramike iz Iznika i Delfta.",
+      "en": "Ceramicist and writer. He is researching the kinship between İznik and Delft tiles."
+    }
+  },
+  {
+    "id": "amra-begic-wells",
+    "name": "Amra Begić Wells",
+    "city": "Edinburgh",
+    "writes": ["en", "bs", "tr"],
+    "bio": {
+      "tr": "Edinburgh'da dilbilim okutuyor. Türkçeyi Boşnak anneannesinden, kelime kelime öğrendi.",
+      "bs": "Predaje lingvistiku u Edinburghu. Turski je naučila od nane, riječ po riječ.",
+      "en": "She teaches linguistics in Edinburgh. She learned Turkish from her Bosnian grandmother, one word at a time."
+    }
+  }
+]

@@ -1,0 +1,88 @@
+---
+/**
+ * An issue cover: a marbled (ebru) sheet generated from the issue's palette and seed,
+ * with the title and masthead printed on paper bands. The same issue always
+ * produces the same pattern.
+ */
+import type { Issue } from '../lib/content';
+import type { Lang } from '../i18n/ui';
+import { formatMonth, useTranslations } from '../i18n/utils';
+import EbruField from './EbruField.astro';
+
+interface Props {
+  issue: Issue;
+  lang: Lang;
+  /** Animate the paint being combed out when the page loads (hero cover only). */
+  animate?: boolean;
+  class?: string;
+}
+
+const { issue, lang, animate = false, class: className } = Astro.props;
+const t = useTranslations(lang);
+const { number, title, palette, date } = issue.data;
+
+const ground = palette[0];
+---
+
+<figure
+  class:list={['cover', className]}
+  role="img"
+  aria-label={`${t('issue.label', { n: number })}: ${title[lang]}`}
+  style={`--ground:${ground}`}
+>
+  <EbruField issue={issue} animate={animate} />
+  <div class="band top" aria-hidden="true">
+    <span class="title">{title[lang]}</span>
+  </div>
+  <div class="band bottom" aria-hidden="true">
+    <span class="mast">ink &amp; young</span>
+    <span class="meta">{t('issue.label', { n: number })}, {formatMonth(date, lang)}</span>
+  </div>
+</figure>
+
+<style>
+  .cover {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 3 / 4;
+    margin: 0;
+    overflow: hidden;
+    background: var(--ground);
+    box-shadow: var(--shadow-cover), 0 0 0 1px var(--rule);
+  }
+  .band {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: var(--cover-paper);
+    color: var(--ink);
+  }
+  .top {
+    top: -1px;
+    padding: 7cqi 8cqi 4.5cqi;
+  }
+  .title {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 12cqi;
+    line-height: 0.95;
+    text-wrap: balance;
+  }
+  .bottom {
+    bottom: -1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4cqi;
+    padding: 3.2cqi 8cqi 3.6cqi;
+  }
+  .mast {
+    font-family: var(--font-display);
+    font-size: 5.6cqi;
+  }
+  .meta {
+    font-size: 4.2cqi;
+    color: var(--ink-soft);
+    text-align: right;
+  }
+</style>

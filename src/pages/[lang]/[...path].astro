@@ -1,0 +1,47 @@
+---
+/**
+ * Every inner page in every language. Section segments are localised
+ * (/tr/yazilar/, /bs/tekstovi/, /en/writing/), so one route builds them all
+ * and hands each path to its view. The magazine has a single issue, which
+ * lives on the home page.
+ */
+import PostsView from '../../views/Posts.astro';
+import PostView from '../../views/Post.astro';
+import AuthorsView from '../../views/Authors.astro';
+import AboutView from '../../views/About.astro';
+import ContributeView from '../../views/Contribute.astro';
+import { langs, routes, type Lang } from '../../i18n/ui';
+import { getPosts, postSlug, type Post } from '../../lib/content';
+
+type View =
+  | { view: 'posts' }
+  | { view: 'post'; post: Post }
+  | { view: 'authors' }
+  | { view: 'about' }
+  | { view: 'contribute' };
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+
+  return langs.flatMap((lang) => {
+    const page = (path: string, props: View) => ({ params: { lang, path }, props });
+    return [
+      page(routes.posts[lang], { view: 'posts' }),
+      // Every piece is readable under every interface language; it keeps its own lang attribute.
+      ...posts.map((post) => page(`${routes.posts[lang]}/${postSlug(post)}`, { view: 'post', post })),
+      page(routes.authors[lang], { view: 'authors' }),
+      page(routes.about[lang], { view: 'about' }),
+      page(routes.contribute[lang], { view: 'contribute' }),
+    ];
+  });
+}
+
+const lang = Astro.params.lang as Lang;
+const props = Astro.props as View;
+---
+
+{props.view === 'posts' && <PostsView lang={lang} />}
+{props.view === 'post' && <PostView lang={lang} post={props.post} />}
+{props.view === 'authors' && <AuthorsView lang={lang} />}
+{props.view === 'about' && <AboutView lang={lang} />}
+{props.view === 'contribute' && <ContributeView lang={lang} />}

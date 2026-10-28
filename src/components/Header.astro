@@ -1,0 +1,230 @@
+---
+import { languages, langs, type Lang, type RouteKey } from '../i18n/ui';
+import { localPath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  current?: RouteKey | 'home';
+  /** The same page in every interface language. */
+  alternates: Record<Lang, string>;
+}
+
+const { lang, current, alternates } = Astro.props;
+const t = useTranslations(lang);
+
+const items: { key: RouteKey | 'home'; label: string; href: string }[] = [
+  { key: 'home', label: t('nav.home'), href: localPath(lang) },
+  { key: 'posts', label: t('nav.posts'), href: localPath(lang, 'posts') },
+  { key: 'authors', label: t('nav.authors'), href: localPath(lang, 'authors') },
+  { key: 'about', label: t('nav.about'), href: localPath(lang, 'about') },
+  { key: 'contribute', label: t('nav.contribute'), href: localPath(lang, 'contribute') },
+];
+---
+
+<a class="skip" href="#main">{t('nav.skip')}</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href={localPath(lang)} aria-label={`ink & young, ${t('nav.home')}`}>ink &amp; young</a>
+
+    <nav class="nav" id="site-nav" aria-label={t('nav.menu')}>
+      <ul>
+        {
+          items.map((item) => (
+            <li>
+              <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <ul class="langs" aria-label={t('nav.language')}>
+      {
+        langs.map((l) => (
+          <li>
+            <a
+              href={alternates[l]}
+              hreflang={l}
+              lang={l}
+              title={languages[l]}
+              aria-current={l === lang ? 'true' : undefined}
+            >
+              {l.toUpperCase()}
+              <span class="visually-hidden">, {languages[l]}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-open={t('nav.menu')} data-close={t('nav.close')}>
+      <span class="label">{t('nav.menu')}</span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.getElementById('site-nav');
+  if (button && nav) {
+    const label = button.querySelector('.label')!;
+    const set = (open: boolean) => {
+      button.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('open', open);
+      label.textContent = open ? button.dataset.close! : button.dataset.open!;
+    };
+    button.addEventListener('click', () => set(button.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('open')) {
+        set(false);
+        button.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .skip {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    z-index: 10;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 16px;
+  }
+  .skip:focus {
+    top: 12px;
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: 'logo langs toggle' 'nav nav nav';
+    align-items: center;
+    column-gap: 12px;
+    min-height: 64px;
+  }
+  .logo {
+    grid-area: logo;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    padding-block: 12px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav {
+    grid-area: nav;
+  }
+  .nav ul {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+  }
+  .nav a {
+    display: block;
+    padding: 11px 0;
+    font-size: var(--step-1);
+    text-decoration: none;
+    border-top: 1px solid var(--rule);
+  }
+  .nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.35em;
+  }
+  :global(.js) .nav {
+    display: none;
+  }
+  :global(.js) .nav.open {
+    display: block;
+  }
+
+  .langs {
+    grid-area: langs;
+    display: flex;
+    font-size: var(--step--1);
+  }
+  .langs li + li::before {
+    content: '/';
+    color: var(--rule-strong);
+  }
+  .langs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 30px;
+    justify-content: center;
+    color: var(--ink-soft);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .langs a:hover {
+    color: var(--ink);
+  }
+  .langs a[aria-current='true'] {
+    color: var(--ink);
+    font-weight: 650;
+  }
+
+  .menu-toggle {
+    grid-area: toggle;
+    display: none;
+    min-height: 44px;
+    padding: 0 0 0 12px;
+    border: 0;
+    border-left: 1px solid var(--rule);
+    background: none;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--step--1);
+    cursor: pointer;
+  }
+  :global(.js) .menu-toggle {
+    display: block;
+  }
+
+  @media (min-width: 900px) {
+    .bar {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 'logo nav langs';
+      column-gap: 32px;
+      min-height: 76px;
+    }
+    .logo {
+      font-size: 1.9rem;
+    }
+    :global(.js) .nav,
+    .nav {
+      display: block;
+      justify-self: center;
+    }
+    .nav ul {
+      flex-direction: row;
+      gap: clamp(14px, 2vw, 28px);
+      padding: 0;
+    }
+    .nav a {
+      border: 0;
+      font-size: 1rem;
+      padding: 10px 0;
+    }
+    :global(.js) .menu-toggle {
+      display: none;
+    }
+  }
+</style>

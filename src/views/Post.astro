@@ -1,0 +1,265 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import EbruCover from '../components/EbruCover.astro';
+import PostEnd from '../components/PostEnd.astro';
+import { compositionFor } from '../compositions';
+import type { Lang } from '../i18n/ui';
+import { alternatesFor, categoryLabel, formatDate, localPath, useTranslations } from '../i18n/utils';
+import { getAuthorMap, getIssues, getPosts, postSlug, postsInIssue, readingMinutes, type Post } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+}
+
+const { lang, post } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(post);
+const slug = postSlug(post);
+const authors = await getAuthorMap();
+const author = authors.get(post.data.author.id)!;
+const issue = (await getIssues()).find((i) => i.data.number === post.data.issue);
+const inIssue = postsInIssue(await getPosts(), post.data.issue);
+const sameIssue = inIssue.filter((p) => p.id !== post.id);
+const at = inIssue.findIndex((p) => p.id === post.id);
+const prev = at > 0 ? inIssue[at - 1] : undefined;
+const next = at >= 0 ? inIssue[at + 1] : undefined;
+// A piece with its own art direction (src/compositions/) replaces the standard reading page.
+const Composition = compositionFor(slug);
+const isPoem = post.data.category === 'siir';
+const foreign = post.data.lang !== lang;
+---
+
+<Base
+  lang={lang}
+  current="posts"
+  title={post.data.title}
+  description={post.data.excerpt}
+  alternates={alternatesFor('posts', slug)}
+  canonical={localPath(post.data.lang, 'posts', slug)}
+>
+  {
+    Composition ? (
+      <Composition lang={lang} post={post} author={author} issue={issue}>
+        <Content />
+        <PostEnd slot="end" lang={lang} author={author} authors={authors} sameIssue={sameIssue} prev={prev} next={next} />
+      </Composition>
+    ) : (
+        <article class="wrap article" lang={post.data.lang}>
+          <header class="head">
+            <p class="kicker" lang={lang}>
+              <a href={`${localPath(lang, 'posts')}?kategori=${post.data.category}`}>{categoryLabel(post.data.category, lang)}</a>
+              {foreign && <span class="note">{t('post.lang.note', { lang: t(`lang.in.${post.data.lang}`) })}</span>}
+            </p>
+            <h1>{post.data.title}</h1>
+            <p class="byline" lang={lang}>
+              <a href={`${localPath(lang, 'authors')}#${author.id}`}>{author.data.name}</a>
+              {post.data.translator && <span>{t('post.translator')}: {post.data.translator}</span>}
+            </p>
+          </header>
+
+          <aside class="side" lang={lang}>
+            {
+              issue && (
+                <a class="side-issue" href={localPath(lang)}>
+                  <EbruCover issue={issue} lang={lang} />
+                  <span class="meta">{t('post.in')}</span>
+                  <span class="side-title">
+                    {t('issue.label', { n: issue.data.number })}, {issue.data.title[lang]}
+                  </span>
+                </a>
+              )
+            }
+            <p class="meta">
+              <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date, lang)}</time>
+              <span>{t('post.minutes', { n: readingMinutes(post) })}</span>
+            </p>
+          </aside>
+
+          <div class:list={['prose', { poem: isPoem }]}>
+            <Content />
+          </div>
+
+          <PostEnd class="post-end" lang={lang} author={author} authors={authors} sameIssue={sameIssue} prev={prev} next={next} />
+        </article>
+    )
+  }
+</Base>
+
+<style>
+  .article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'head' 'side' 'prose' 'end';
+    padding-top: clamp(32px, 6vw, 80px);
+  }
+
+  .head {
+    grid-area: head;
+    margin-bottom: 20px;
+  }
+  .kicker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    font-size: var(--step--1);
+    margin-bottom: 12px;
+  }
+  .kicker a {
+    color: var(--turquoise);
+    text-decoration: none;
+  }
+  .kicker a:hover {
+    text-decoration: underline;
+  }
+  .note {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  h1 {
+    font-size: var(--step-5);
+    line-height: 1;
+    max-width: 13em;
+    margin-bottom: 18px;
+  }
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 18px;
+    font-size: var(--step-1);
+    font-style: italic;
+  }
+  .byline a {
+    text-decoration-color: var(--rule-strong);
+  }
+
+  .side {
+    grid-area: side;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+    padding-block: 16px;
+    border-block: 1px solid var(--rule);
+    margin-bottom: 36px;
+  }
+  .side .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+  }
+  .side-issue {
+    display: grid;
+    grid-template-columns: 44px auto;
+    column-gap: 12px;
+    align-items: center;
+    text-decoration: none;
+  }
+  .side-issue :global(.cover) {
+    grid-row: span 2;
+  }
+  .side-issue :global(.band) {
+    display: none;
+  }
+  .side-title {
+    font-size: var(--step--1);
+    line-height: 1.3;
+  }
+  .side-issue:hover .side-title {
+    text-decoration: underline;
+    text-decoration-color: var(--red);
+  }
+
+  /* Reading column: about 34em at body size keeps lines near 65–72 characters. */
+  .prose {
+    grid-area: prose;
+    max-width: var(--measure);
+    font-size: var(--step-0);
+    line-height: 1.7;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .prose :global(p) {
+    margin-bottom: 1em;
+  }
+  .prose:not(.poem) > :global(p:first-child::first-letter) {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 3.9em;
+    line-height: 0.82;
+    padding: 0.07em 0.09em 0 0;
+    color: var(--red);
+  }
+  .prose :global(h2) {
+    font-size: var(--step-2);
+    margin: 1.8em 0 0.6em;
+  }
+  .prose :global(em) {
+    font-style: italic;
+  }
+  .prose :global(blockquote) {
+    margin: 1.5em 0;
+    padding-left: 1.2em;
+    border-left: 2px solid var(--red);
+    font-style: italic;
+  }
+
+  .poem {
+    hyphens: manual;
+    line-height: 1.75;
+  }
+  .poem :global(p) {
+    white-space: pre-line;
+    margin-bottom: 1.6em;
+  }
+
+  .article > :global(.post-end) {
+    grid-area: end;
+  }
+
+  @media (min-width: 1000px) {
+    .article {
+      grid-template-columns: 200px minmax(0, var(--measure)) 1fr;
+      grid-template-areas:
+        '. head head'
+        'side prose .'
+        'side end .';
+      column-gap: clamp(40px, 5vw, 80px);
+    }
+    .head {
+      margin-bottom: 48px;
+    }
+    .side {
+      flex-direction: column;
+      align-items: stretch;
+      align-self: start;
+      position: sticky;
+      top: 24px;
+      padding: 0;
+      border: 0;
+      gap: 20px;
+    }
+    .side .meta {
+      flex-direction: column;
+    }
+    .side-issue {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+    }
+    /* The cover sizes its contents by container width, which leaves the browser
+       nothing to measure its height by; without a fixed height it slid over the
+       date below it. The side column is 200px wide. */
+    .side-issue :global(.cover) {
+      width: 100%;
+      height: calc(200px * 4 / 3);
+      flex: none;
+      margin-bottom: 10px;
+    }
+    .side-issue :global(.band) {
+      display: flex;
+    }
+  }
+</style>

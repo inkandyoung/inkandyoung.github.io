@@ -1,0 +1,158 @@
+:root {
+  /* İznik palette */
+  --paper: #eef0ea;
+  --paper-2: #f7f8f4;
+  --cover-paper: #f8f8f3;
+  --ink: #1c2340;
+  --ink-soft: #4f566b;
+  --red: #a3302a;
+  --turquoise: #22706e;
+  --rule: rgb(28 35 64 / 0.16);
+  --rule-strong: rgb(28 35 64 / 0.32);
+  --shadow-cover: 0 30px 40px -30px rgb(28 35 64 / 0.55);
+
+  --font-display: 'Gloock', 'Literata Variable', Georgia, serif;
+  --font-text: 'Literata Variable', Georgia, 'Times New Roman', serif;
+
+  /* Type scale, ratio 1.25 */
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: clamp(1.75rem, 1.4rem + 1.6vw, 2.4rem);
+  --step-4: clamp(2.2rem, 1.6rem + 2.8vw, 3.6rem);
+  --step-5: clamp(2.6rem, 1.7rem + 4.2vw, 4.75rem);
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap: 1200px;
+  --measure: 34em;
+
+  color-scheme: light;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --step-0: 1.125rem;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: var(--red);
+}
+
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: #d9c6a0;
+  color: var(--ink);
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* A rule above a section, aligned to the content edge rather than the padded box. */
+.ruled {
+  background-image: linear-gradient(var(--rule-strong), var(--rule-strong));
+  background-size: calc(100% - 2 * var(--gutter)) 1px;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Page heading block shared by the inner pages */
+.page-head {
+  padding-block: clamp(40px, 7vw, 88px) clamp(28px, 4vw, 48px);
+  border-bottom: 1px solid var(--rule);
+}
+.page-head h1 {
+  font-size: var(--step-5);
+  margin-bottom: 0.3em;
+}
+.page-head p {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 32em;
+  color: var(--ink-soft);
+}
+
+.meta {
+  font-size: var(--step--1);
+  color: var(--ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

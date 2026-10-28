@@ -1,0 +1,460 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site.config';
+import { categoryKeys, langs, type Lang } from '../i18n/ui';
+import { alternatesFor, categoryLabel, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const copy = {
+  tr: {
+    intro: 'Türkçe, Boşnakça ya da İngilizce yazıyorsanız sayfalarımız size açık. Göndermeden önce aşağıdaki kuralları okuyun; her yazıyı okuyor ve altı hafta içinde yanıtlıyoruz.',
+    rules: [
+      ['Genel', ['Daha önce basılı ya da çevrimiçi yayımlanmamış yazıları kabul ediyoruz.', 'Aynı anda yalnızca bir gönderim yapın. Yazınız başka bir yerde kabul edilirse bize haber verin.', 'Gönderim ücretsizdir. Yanıtımızı altı hafta içinde e-postayla iletiyoruz.']],
+      ['Şiir', ['Tek gönderimde en fazla beş şiir.', 'Biçim önemliyse satır aralarını ve girintileri olduğu gibi bırakın.']],
+      ['Öykü ve deneme', ['1.000 ile 4.000 kelime arası.', 'Bölüm başlıkları kullanabilirsiniz; dipnot yerine metin içi açıklama tercih ediyoruz.']],
+      ['Sanat ve kültür', ['800 ile 2.500 kelime arası yazılar.', 'Görseller için en az 2000 piksel genişliğinde dosyaların bağlantısını ekleyin ve kullanım iznini belirtin.']],
+      ['Çeviri', ['Kaynak metni ve çeviri hakkı için yazarın ya da yayıncının iznini ekleyin.']],
+      ['Haklar', ['Yazının hakları sizde kalır. Yalnızca ilk yayın hakkını istiyoruz.', 'Yazısı yayımlanan herkese basılı sayıdan iki adet gönderiyoruz.']],
+    ],
+  },
+  bs: {
+    intro: 'Ako pišete na turskom, bosanskom ili engleskom jeziku, naše stranice su vam otvorene. Prije slanja pročitajte pravila ispod; čitamo svaki tekst i odgovaramo u roku od šest sedmica.',
+    rules: [
+      ['Općenito', ['Primamo tekstove koji ranije nisu objavljeni, ni u štampi ni na internetu.', 'Šaljite jedan po jedan prilog. Ako vaš tekst bude prihvaćen negdje drugo, javite nam.', 'Slanje je besplatno. Odgovaramo e-mailom u roku od šest sedmica.']],
+      ['Poezija', ['Najviše pet pjesama po prilogu.', 'Ako je forma važna, ostavite razmake i uvlačenja kakvi jesu.']],
+      ['Proza i esej', ['Između 1.000 i 4.000 riječi.', 'Možete koristiti podnaslove; umjesto fusnota preferiramo objašnjenja u tekstu.']],
+      ['Umjetnost i kultura', ['Tekstovi između 800 i 2.500 riječi.', 'Za slike pošaljite link do datoteka širine najmanje 2000 piksela i navedite dozvolu za korištenje.']],
+      ['Prevod', ['Priložite izvorni tekst i dozvolu autora ili izdavača za prevod.']],
+      ['Prava', ['Prava na tekst ostaju vama. Tražimo samo pravo prvog objavljivanja.', 'Svima čiji je tekst objavljen šaljemo dva primjerka štampanog broja.']],
+    ],
+  },
+  en: {
+    intro: 'If you write in Turkish, Bosnian or English, our pages are open to you. Read the guidelines below before you send anything; we read every submission and reply within six weeks.',
+    rules: [
+      ['General', ['We accept work that has not been published before, in print or online.', 'Send one submission at a time. If your piece is accepted elsewhere, let us know.', 'Submitting is free. We reply by email within six weeks.']],
+      ['Poetry', ['Up to five poems per submission.', 'If the form matters, keep your line breaks and indentation as they are.']],
+      ['Fiction and essays', ['Between 1,000 and 4,000 words.', 'Section headings are welcome; we prefer explanations in the text to footnotes.']],
+      ['Art and culture', ['Pieces of 800 to 2,500 words.', 'For images, include a link to files at least 2000 pixels wide and say whether we may use them.']],
+      ['Translation', ['Include the source text and permission from the author or publisher to translate it.']],
+      ['Rights', ['You keep the rights to your work. We ask only for first publication rights.', 'Everyone we publish receives two copies of the printed issue.']],
+    ],
+  },
+}[lang];
+
+const errors = {
+  required: t('form.error.required'),
+  email: t('form.error.email'),
+  consent: t('form.error.consent'),
+};
+---
+
+<Base lang={lang} current="contribute" title={t('contribute.title')} description={copy.intro} alternates={alternatesFor('contribute')}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t('contribute.title')}</h1>
+      <p>{copy.intro}</p>
+      <a class="jump" href="#form-title">{t('contribute.form')}</a>
+    </header>
+
+    <div class="layout">
+      <section class="rules" aria-labelledby="rules-title">
+        <h2 id="rules-title">{t('contribute.rules')}</h2>
+        {
+          copy.rules.map(([heading, items]) => (
+            <div class="rule">
+              <h3>{heading}</h3>
+              <ul>
+                {(items as string[]).map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <div class="rule contact">
+          <h3>{t('contact.title')}</h3>
+          <p>{t('contact.text')}</p>
+          <p><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p>
+        </div>
+      </section>
+
+      <section class="form-col" aria-labelledby="form-title">
+        <h2 id="form-title">{t('contribute.form')}</h2>
+
+        <div class="summary" role="alert" tabindex="-1" data-summary hidden>
+          <p>{t('form.error.summary')}</p>
+          <ul></ul>
+        </div>
+
+        <form
+          novalidate
+          method="post"
+          action={site.formEndpoint || `mailto:${site.email}`}
+          enctype={site.formEndpoint ? 'multipart/form-data' : 'text/plain'}
+          data-endpoint={site.formEndpoint}
+          data-email={site.email}
+          data-errors={JSON.stringify(errors)}
+          data-messages={JSON.stringify({ sending: t('form.sending'), sent: t('form.sent'), mailto: t('form.mailto'), failed: t('form.failed', { email: site.email }) })}
+        >
+          <div class="field">
+            <label for="f-name">{t('form.name')}</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="f-name-err" />
+            <p class="error" id="f-name-err" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="f-email">{t('form.email')}</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-email-err" />
+            <p class="error" id="f-email-err" hidden></p>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="f-category">{t('form.category')}</label>
+              <select id="f-category" name="category" required aria-describedby="f-category-err">
+                <option value="">{t('form.choose')}</option>
+                {categoryKeys.map((key) => <option value={key}>{categoryLabel(key, lang)}</option>)}
+              </select>
+              <p class="error" id="f-category-err" hidden></p>
+            </div>
+            <div class="field">
+              <label for="f-language">{t('form.language')}</label>
+              <select id="f-language" name="language" required aria-describedby="f-language-err">
+                <option value="">{t('form.choose')}</option>
+                {langs.map((l) => <option value={l}>{t(`lang.${l}`)}</option>)}
+              </select>
+              <p class="error" id="f-language-err" hidden></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-title">{t('form.title')}</label>
+            <input id="f-title" name="title" type="text" required aria-describedby="f-title-err" />
+            <p class="error" id="f-title-err" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="f-text">{t('form.text')}</label>
+            <p class="hint" id="f-text-hint">{t('form.text.hint')}</p>
+            <textarea id="f-text" name="text" rows="12" required aria-describedby="f-text-hint f-text-err"></textarea>
+            <p class="error" id="f-text-err" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="f-bio">{t('form.bio')}</label>
+            <p class="hint" id="f-bio-hint">{t('form.bio.hint')}</p>
+            <textarea id="f-bio" name="bio" rows="3" aria-describedby="f-bio-hint"></textarea>
+          </div>
+
+          <div class="field check">
+            <input id="f-consent" name="consent" type="checkbox" required aria-describedby="f-consent-err" />
+            <label for="f-consent">{t('form.consent')}</label>
+            <p class="error" id="f-consent-err" hidden></p>
+          </div>
+
+          <button type="submit">{t('form.submit')}</button>
+          <p class="status" role="status" data-status></p>
+        </form>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[data-errors]');
+  if (form) {
+    const errors = JSON.parse(form.dataset.errors!) as Record<'required' | 'email' | 'consent', string>;
+    const messages = JSON.parse(form.dataset.messages!) as Record<'sending' | 'sent' | 'mailto' | 'failed', string>;
+    const summary = document.querySelector<HTMLElement>('[data-summary]')!;
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]')];
+    let attempted = false;
+
+    const messageFor = (el: (typeof fields)[number]) => {
+      if (el instanceof HTMLInputElement && el.type === 'checkbox') return el.checked ? '' : errors.consent;
+      const value = el.value.trim();
+      if (!value) return errors.required;
+      if (el instanceof HTMLInputElement && el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) return errors.email;
+      return '';
+    };
+
+    const check = (el: (typeof fields)[number]) => {
+      const message = messageFor(el);
+      const box = document.getElementById(`${el.id}-err`)!;
+      box.textContent = message;
+      box.hidden = !message;
+      el.toggleAttribute('aria-invalid', !!message);
+      return message;
+    };
+
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => attempted && check(el));
+      el.addEventListener('input', () => attempted && check(el));
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      attempted = true;
+      const problems = fields.map((el) => [el, check(el)] as const).filter(([, m]) => m);
+
+      const list = summary.querySelector('ul')!;
+      list.replaceChildren(
+        ...problems.map(([el, message]) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = `#${el.id}`;
+          const isCheckbox = el instanceof HTMLInputElement && el.type === 'checkbox';
+          a.textContent = isCheckbox ? message : `${form.querySelector(`label[for="${el.id}"]`)?.textContent}: ${message}`;
+          li.append(a);
+          return li;
+        }),
+      );
+      summary.hidden = problems.length === 0;
+      if (problems.length) {
+        summary.focus();
+        return;
+      }
+
+      const data = new FormData(form);
+      const endpoint = form.dataset.endpoint;
+
+      if (!endpoint) {
+        // No form service configured: hand the piece to the visitor's email app.
+        const body = [...data.entries()]
+          .filter(([key]) => key !== 'consent')
+          .map(([key, value]) => {
+            const control = form.elements.namedItem(key);
+            const label = form.querySelector(`label[for="${(control as HTMLElement).id}"]`)?.textContent;
+            const text = control instanceof HTMLSelectElement ? control.selectedOptions[0].text : value;
+            return `${label}:\n${text}`;
+          })
+          .join('\n\n');
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(String(data.get('title')))}&body=${encodeURIComponent(body)}`;
+        status.textContent = messages.mailto;
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = messages.sending;
+      try {
+        const response = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error(String(response.status));
+        form.reset();
+        attempted = false;
+        status.textContent = messages.sent;
+      } catch {
+        status.textContent = messages.failed;
+      } finally {
+        button.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .layout {
+    display: grid;
+    gap: 56px;
+    padding-top: clamp(32px, 5vw, 56px);
+  }
+  .jump {
+    display: inline-block;
+    margin-top: 16px;
+    padding-block: 10px;
+    font-weight: 600;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+  }
+  #form-title {
+    scroll-margin-top: 16px;
+  }
+  h2 {
+    font-size: var(--step-3);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-strong);
+    margin-bottom: 8px;
+  }
+
+  .rule {
+    padding-block: 18px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .rule h3 {
+    font-size: var(--step-1);
+    margin-bottom: 8px;
+  }
+  .rule ul {
+    margin: 0;
+    padding-left: 1.1em;
+    display: grid;
+    gap: 6px;
+  }
+  .rule li {
+    line-height: 1.5;
+  }
+  .rule li::marker {
+    color: var(--red);
+  }
+  .contact p + p {
+    margin-top: 6px;
+  }
+
+  .summary {
+    margin-block: 16px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--red);
+    background: var(--paper-2);
+  }
+  .summary[hidden] {
+    display: none;
+  }
+  .summary p {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .summary ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .summary a {
+    color: var(--red);
+  }
+
+  form {
+    display: grid;
+    gap: 22px;
+    padding-top: 16px;
+  }
+  .row {
+    display: grid;
+    gap: 22px;
+  }
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+  label {
+    font-weight: 600;
+    font-size: var(--step-0);
+  }
+  .hint {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+    margin-top: -2px;
+  }
+  input[type='text'],
+  input[type='email'],
+  select,
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 14px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 2px;
+    background: var(--paper-2);
+    color: var(--ink);
+    font: inherit;
+    font-size: 1rem;
+  }
+  textarea {
+    line-height: 1.6;
+    resize: vertical;
+  }
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+  }
+  input:hover,
+  select:hover,
+  textarea:hover {
+    border-color: var(--ink-soft);
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+    border-color: var(--ink);
+  }
+  [aria-invalid] {
+    border-color: var(--red) !important;
+  }
+  .error {
+    color: var(--red);
+    font-size: var(--step--1);
+  }
+  .error[hidden] {
+    display: none;
+  }
+
+  .check {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    column-gap: 12px;
+  }
+  .check input {
+    width: 22px;
+    height: 22px;
+    margin: 2px 0 0;
+    accent-color: var(--ink);
+  }
+  .check label {
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  .check .error {
+    grid-column: 2;
+  }
+
+  button {
+    justify-self: start;
+    min-height: 48px;
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 2px;
+    background: var(--ink);
+    color: var(--paper);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover {
+    background: var(--red);
+  }
+  button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .status:empty {
+    display: none;
+  }
+  .status {
+    padding: 12px 16px;
+    background: var(--paper-2);
+    border-left: 3px solid var(--turquoise);
+  }
+
+  @media (min-width: 640px) {
+    .row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 960px) {
+    .layout {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      column-gap: clamp(48px, 6vw, 96px);
+      align-items: start;
+    }
+  }
+</style>

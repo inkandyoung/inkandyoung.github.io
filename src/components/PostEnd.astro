@@ -1,0 +1,74 @@
+---
+/** What follows every piece: the author's note, page turning and the rest of the issue. */
+import Contents from './Contents.astro';
+import PostPager from './PostPager.astro';
+import type { Lang } from '../i18n/ui';
+import { localPath, useTranslations } from '../i18n/utils';
+import type { Author, Post } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  author: Author;
+  authors: Map<string, Author>;
+  sameIssue: Post[];
+  prev?: Post;
+  next?: Post;
+  class?: string;
+}
+
+const { lang, author, authors, sameIssue, prev, next, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<footer class:list={['end', className]} lang={lang}>
+  <section class="bio" aria-labelledby="bio-name">
+    <h2 id="bio-name"><a href={`${localPath(lang, 'authors')}#${author.id}`}>{author.data.name}</a></h2>
+    <p>{author.data.bio[lang]}</p>
+  </section>
+
+  <PostPager lang={lang} prev={prev} next={next} />
+
+  {
+    sameIssue.length > 0 && (
+      <section class="more" aria-labelledby="more-title">
+        <h2 id="more-title">{t('post.more')}</h2>
+        <Contents lang={lang} posts={sameIssue} authors={authors} />
+      </section>
+    )
+  }
+  <p><a class="back" href={localPath(lang, 'posts')}>{t('post.back')}</a></p>
+</footer>
+
+<style>
+  .end {
+    max-width: var(--measure);
+    margin-top: 40px;
+  }
+  .bio {
+    padding: 24px 0;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .bio h2 {
+    font-size: var(--step-2);
+    margin-bottom: 8px;
+  }
+  .bio h2 a {
+    text-decoration: none;
+  }
+  .bio p {
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .more {
+    margin-top: 32px;
+  }
+  .more h2 {
+    font-size: var(--step-2);
+    margin-bottom: 12px;
+  }
+  .back {
+    display: inline-block;
+    margin-top: 28px;
+    padding-block: 10px;
+  }
+</style>

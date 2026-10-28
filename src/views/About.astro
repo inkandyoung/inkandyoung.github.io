@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Lang } from '../i18n/ui';
+import { alternatesFor, localPath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const copy = {
+  tr: {
+    lead: 'ink & young, Türkçe, Boşnakça ve İngilizce yayımlanan bağımsız bir edebiyat, kültür ve sanat dergisidir.',
+    body: [
+      'Dergiyi, aynı masada üç dil konuşan bir grup genç yazar ve çevirmen kurdu. Türkçeden Boşnakçaya geçmiş yüzlerce kelime, iki dilin yüzyıllardır birbirine misafir olduğunu gösteriyor; biz de bu misafirliği sayfalara taşımak istedik. İngilizce ise dağılmış olanlarla, Londra\'dan Edinburgh\'a uzanan diasporayla konuştuğumuz dil.',
+      'Her sayının bir teması ve bir rengi var. Kapaklarımız, o sayının renkleriyle yapılmış birer ebru: suyun üstünde boyayla çizilen, kâğıda bir kez geçen ve bir daha tekrarlanmayan desenler. Ebru hem Osmanlı\'da hem Bosna\'da yaşayan ortak bir sanat; bizim için iki kıyı arasında kurulmuş bir köprü.',
+      'Yazıları kendi dillerinde yayımlıyoruz. Bir yazının çevirisi olduğunda bunu açıkça belirtiyor, çevirmenin adını yazarın adı kadar önemsiyoruz.',
+    ],
+    period: 'Sayı',
+    periodValue: 'Sayı 1 · tek sayı · çevrimiçi',
+    languages: 'Yayın dilleri',
+    languagesValue: 'Türkçe, Boşnakça, İngilizce',
+    place: 'Yayın yeri',
+    roles: ['Genel yayın yönetmeni', 'Şiir ve öykü editörü', 'Çeviri editörü', 'Görsel yönetmen', 'Düzelti'],
+    contact: 'İletişim',
+  },
+  bs: {
+    lead: 'ink & young je nezavisni časopis za književnost, kulturu i umjetnost koji izlazi na turskom, bosanskom i engleskom jeziku.',
+    body: [
+      'Časopis je pokrenula grupa mladih pisaca i prevodilaca koji za istim stolom govore tri jezika. Stotine riječi koje su iz turskog prešle u bosanski pokazuju da su ova dva jezika stoljećima jedan drugom u gostima; to gostoprimstvo smo željeli prenijeti na stranice. Engleski je jezik kojim razgovaramo s raseljenima, s dijasporom od Londona do Edinburgha.',
+      'Svaki broj ima svoju temu i svoju boju. Naše naslovnice su ebru u bojama tog broja: šare iscrtane bojom po vodi, prenesene na papir samo jednom i nikad ponovljene. Ebru je umjetnost koju dijele osmanska i bosanska tradicija; za nas je to ćuprija između dvije obale.',
+      'Tekstove objavljujemo na jeziku na kojem su napisani. Kada je tekst preveden, to jasno navodimo, a ime prevodioca nam je jednako važno kao i ime autora.',
+    ],
+    period: 'Broj',
+    periodValue: 'Broj 1 · jedan broj · online izdanje',
+    languages: 'Jezici',
+    languagesValue: 'turski, bosanski, engleski',
+    place: 'Mjesto izdavanja',
+    // Neutral until the team is known; pick the form that matches each person.
+    roles: ['Glavni i odgovorni urednik / urednica', 'Urednik / urednica poezije i proze', 'Urednik / urednica prijevoda', 'Umjetnički direktor / direktorica', 'Lektura'],
+    contact: 'Kontakt',
+  },
+  en: {
+    lead: 'ink & young is an independent magazine of literature, culture and art, published in Turkish, Bosnian and English.',
+    body: [
+      'The magazine was started by a group of young writers and translators who speak three languages around the same table. Hundreds of words that travelled from Turkish into Bosnian show that the two languages have been each other\'s guests for centuries, and we wanted to bring that hospitality onto the page. English is how we speak with those who have scattered, with a diaspora that reaches from London to Edinburgh.',
+      'Every issue has a theme and a colour. Our covers are sheets of ebru marbled in that issue\'s colours: patterns drawn in paint on water, lifted onto paper once and never repeated. Ebru is an art shared by Ottoman and Bosnian tradition; for us it is a bridge between two shores.',
+      'We publish every piece in the language it was written in. When a piece is a translation we say so clearly, and we credit the translator as prominently as the author.',
+    ],
+    period: 'Issue',
+    periodValue: 'Issue 1 · single issue · online',
+    languages: 'Languages',
+    languagesValue: 'Turkish, Bosnian, English',
+    place: 'Published in',
+    roles: ['Editor-in-chief', 'Poetry and fiction editor', 'Translation editor', 'Art director', 'Proofreading'],
+    contact: 'Contact',
+  },
+}[lang];
+
+// Masthead details are never invented: TODO stays until the real team is confirmed.
+const TODO = '[DOLDURULACAK]';
+const people = [[TODO], [TODO], [TODO], [TODO], [`${TODO} (TR)`, `${TODO} (BS)`, `${TODO} (EN)`]];
+---
+
+<Base lang={lang} current="about" title={t('about.title')} description={copy.lead} alternates={alternatesFor('about')}>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>{t('about.title')}</h1>
+    </header>
+
+    <div class="layout">
+      <div class="text">
+        <p class="lead">{copy.lead}</p>
+        {copy.body.map((p) => <p>{p}</p>)}
+      </div>
+
+      <section class="masthead" aria-labelledby="masthead-title">
+        <h2 id="masthead-title">{t('about.masthead')}</h2>
+        <dl>
+          {
+            copy.roles.map((role, i) => (
+              <div>
+                <dt>{role}</dt>
+                {people[i].map((name) => <dd>{name}</dd>)}
+              </div>
+            ))
+          }
+          <div>
+            <dt>{copy.period}</dt>
+            <dd class="plain">{copy.periodValue}</dd>
+          </div>
+          <div>
+            <dt>{copy.languages}</dt>
+            <dd class="plain">{copy.languagesValue}</dd>
+          </div>
+          <div>
+            <dt>{copy.place}</dt>
+            <dd class="plain">{TODO}</dd>
+          </div>
+          <div>
+            <dt>{copy.contact}</dt>
+            <dd class="plain">{TODO}</dd>
+            <dd class="plain"><a href={localPath(lang, 'contribute')}>{t('contribute.title')}</a></dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .layout {
+    display: grid;
+    gap: 56px;
+    padding-top: clamp(32px, 5vw, 56px);
+  }
+  .text {
+    max-width: var(--measure);
+  }
+  .text p {
+    line-height: 1.7;
+    margin-bottom: 1em;
+  }
+  .text .lead {
+    font-size: var(--step-2);
+    line-height: 1.4;
+    margin-bottom: 1.2em;
+  }
+
+  .masthead h2 {
+    font-size: var(--step-3);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  dl {
+    margin: 0;
+  }
+  dl > div {
+    padding-block: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  dt {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.35;
+  }
+  dd.plain {
+    font-family: var(--font-text);
+    font-size: var(--step-0);
+  }
+  dd a {
+    text-decoration-color: var(--rule-strong);
+  }
+
+  @media (min-width: 960px) {
+    .layout {
+      grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+      column-gap: clamp(48px, 7vw, 120px);
+      align-items: start;
+    }
+  }
+</style>

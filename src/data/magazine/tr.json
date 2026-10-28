@@ -1,0 +1,235 @@
+{
+  "lang": "tr",
+  "cover": {
+    "kicker": "SAYI 1 · EKİM 2026",
+    "issue": "",
+    "tags": "BOSNA / EDEBİYAT / HAFIZA",
+    "note": "Editoryal taslak: Özgün örnek metinlerdir, derginin doğrulanmış yayın içeriği değildir.",
+    "title": "Sınır ve Su",
+    "subtitle": "Bosna’nın nehirleri, şehirleri, dilleri ve hafızasında edebî bir yolculuk."
+  },
+  "contents": {
+    "title": "İçindekiler",
+    "note": "Özgün edebî taslaklar · Yayımlanmış sayı değildir"
+  },
+  "footer": "TÜRKÇE · EDİTORYAL TASLAK",
+  "pieces": [
+    {
+      "page": 3,
+      "category": "LİRİK DENEME",
+      "title": "Nehir Bir İsmi Saklar",
+      "poem": false,
+      "text": [
+        "Nehir boyunca her taş, bir ismin ağırlığını öğrenmiştir. Su, kimin hangi kıyıya ait olduğunu sormadan onları taşır. Alacakaranlıkta akıntı, gökyüzünden küçük bir altın parçası yakalar ve onu şehre geri verir."
+      ],
+      "quote": "Nehir silmez; hareket ederek hatırlar."
+    },
+    {
+      "page": 4,
+      "category": "KISA ÖYKÜ",
+      "title": "Aramızdaki Köprü",
+      "poem": false,
+      "text": [
+        "Eski köprünün akşamla buluştuğu yerde karşılaştılar. İkisinin de yanında harita yoktu. Kadın geçtiği yollardan söz etti; adam ise geçmekten korktuğu tek yoldan. Aşağılarında Neretva, bildiklerini kendine sakladı."
+      ],
+      "quote": "Bazı geçişler ilk adımdan önce başlar."
+    },
+    {
+      "page": 5,
+      "category": "MEKTUP ANLATISI",
+      "title": "Gönderilmemiş Mektuplar",
+      "poem": false,
+      "text": [
+        "Sevgili Saraybosna, artık bana ait olmayan bir kapının anahtarını hâlâ saklıyorum. Bunun saçma olduğunu biliyorum. Yine de yağmur pencereme vurduğunda dar sokaklarının cevap verdiğini duyuyorum; bir an için uzaklık, tek bir kâğıt yaprağına dönüşüyor."
+      ],
+      "quote": "Gönderilmemiş her mektup, ışığı yanan bir odadır."
+    },
+    {
+      "page": 6,
+      "category": "ŞİİR",
+      "title": "Yağmurun Dilbilgisi",
+      "poem": true,
+      "text": [
+        "Yağmurun pasaportu yoktur.",
+        "Sessiz çatıdan içeri girer,",
+        "tozu ışıkla çekimler,",
+        "her pencereye bir fiil bırakır.",
+        "Sabah olunca şehir yeniden konuşur."
+      ],
+      "quote": "Gökyüzü, sokakların söyleyemediklerini yazar."
+    },
+    {
+      "page": 7,
+      "category": "ANI",
+      "title": "Büyükannemin Penceresi",
+      "poem": false,
+      "text": [
+        "Penceresinde dantel perde küçük, beyaz bir gelgit gibi kıpırdardı. Öğleden sonraları çay fincanlarıyla ölçer; sıradan bir şeyin üç farklı dildeki adını hatırlardı. Güldüğünde oda, dışarıdaki ülkeden daha büyük hâle gelirdi."
+      ],
+      "quote": "Bazen ev dediğimiz şey bir yer değil, bir sestir."
+    },
+    {
+      "page": 8,
+      "category": "KISA ÖYKÜ",
+      "title": "Bekleyen Ev",
+      "poem": false,
+      "text": [
+        "Ev on üç kıştır boştu ama incir ağacı hâlâ çiçek açıyordu. Bir komşu her bahar merdivenleri süpürürdü. Kimse nedenini sormazdı. Bazı bağlılıkların tanığı yoktur; bazı kapılar kilitlendikten çok sonra bile zihnimizde açık kalır."
+      ],
+      "quote": "Sessizlik bile bir sözü tutabilir."
+    },
+    {
+      "page": 9,
+      "category": "KİŞİSEL DENEME",
+      "title": "Yokluğun Haritası",
+      "poem": false,
+      "text": [
+        "Haritada kasabalar küçük ve kesindir. Hafızada ise yer değiştirirler. Bir pazar yeri çocukluğa doğru uzar; bir istasyon tek bir vedaya küçülür. Parmağımla yolları izlerken eksik olanın da kendine ait bir coğrafyası olduğunu keşfederim."
+      ],
+      "quote": "Tutamadığımız şeylerin çevresine sınırlar çizeriz."
+    },
+    {
+      "page": 10,
+      "category": "KISA ÖYKÜ",
+      "title": "Güneye Giden Son Tren",
+      "poem": false,
+      "text": [
+        "Peron demir, yağmur ve portakal kokuyordu. Tren geldiğinde kimse el sallamadı. Yolcular yalnızca çantalarını kaldırıp vagona bindi; sanki tereddüt ederlerse dünya fikrini değiştirecekti."
+      ],
+      "quote": "Ayrılık, öğretmensiz öğrenilen bir dildir."
+    },
+    {
+      "page": 11,
+      "category": "EDEBÎ TASVİR",
+      "title": "Sessiz Pazar",
+      "poem": false,
+      "text": [
+        "Dükkânlar açılmadan önce sokak, ayak seslerine ve kedilere aittir. Bakır kaplar ilk ışığı yakalar. Bir kepengin ardında ekmek kabarır. Şehir büyük bir duyuruyla değil, gündelik emeğin küçük iyiliğiyle uyanır."
+      ],
+      "quote": "Bir yer, sıradan ritüellerinde yaşamayı sürdürür."
+    },
+    {
+      "page": 12,
+      "category": "ŞİİR",
+      "title": "İki Kıyı Arasında",
+      "poem": true,
+      "text": [
+        "İki kıyının arasında durdum,",
+        "her elimde bir dil taşıyarak.",
+        "Su ikisini de istemedi.",
+        "Üzerine eğilen her yüzün soluk yansımasını alıp götürdü."
+      ],
+      "quote": "Aidiyet her zaman tek bir kıyı demek değildir."
+    },
+    {
+      "page": 13,
+      "category": "KÜLTÜR DENEMESİ",
+      "title": "Taşın Hatırladıkları",
+      "poem": false,
+      "text": [
+        "Köprü, suyun üstünden geçen bir çizgiden ibaret değildir. Zamana yöneltilmiş bir sorudur: Ne kırılabilir, ne yeniden kurulabilir ve ne hâlâ yüksek sesle söylenmelidir? Üzerinde yürürken ayaklarımızın altında tarihi hissederiz."
+      ],
+      "quote": "Taş, bir geçişin biçimini hatırlar."
+    },
+    {
+      "page": 14,
+      "category": "ŞİİR",
+      "title": "Kıştan Sonraki Meyve Bahçesi",
+      "poem": true,
+      "text": [
+        "Meyve bahçesi acele etmedi.",
+        "Kar boyunca soluğunu tuttu,",
+        "kabuğunun altında yeşil bir düşünce sakladı,",
+        "sonra küçücük bir çiçek açtı;",
+        "beklemenin boşuna olmadığını göstermek için."
+      ],
+      "quote": "Umut, seyircisi olmadan başlar."
+    },
+    {
+      "page": 15,
+      "category": "GÖRSEL DENEME",
+      "title": "Sınır Tanımayan Mavi",
+      "poem": false,
+      "text": [
+        "Hiçbir bayrağa ait olmayan maviler vardır: gün doğmadan önce nehir, köprünün altındaki gölge, eski bir fincanın minesi, tepelerin üzerindeki akşam. Ülkeler arasında dolaşırken adlarını değiştirmezler."
+      ],
+      "quote": "Aynı mavi, birçok yuvayı taşıyabilir."
+    },
+    {
+      "page": 16,
+      "category": "ŞİİR",
+      "title": "Leylekler Döndüğünde",
+      "poem": true,
+      "text": [
+        "Leylekler, bir kışı daha öğrenmiş çatılara geri döner.",
+        "Vadinin üzerinde bir kez döner,",
+        "sonra uçsuz bucaksız göğü yuvanın dar biçimine katlarlar."
+      ],
+      "quote": "Dönüş, başlı başına bir mevsimdir."
+    },
+    {
+      "page": 17,
+      "category": "DİL ÜZERİNE DENEME",
+      "title": "Çevirmenin İğnesi",
+      "poem": false,
+      "text": [
+        "Çeviri, özenli bir dikiştir. Bir cümle bir dilden diğerine yolculuk ederken ilk odadan bir parça taşır cebinde. İpliğin rengi değişebilir; ama el, dikişin başladığı yeri hatırlamalıdır."
+      ],
+      "quote": "Bir sözcük, kendini geride bırakmadan sınırı aşabilir."
+    },
+    {
+      "page": 18,
+      "category": "MENSUR ŞİİR",
+      "title": "Küçük Şeyler Pazarı",
+      "poem": false,
+      "text": [
+        "Kenarı çatlak bir fincan tabağı. Bir kurdele. Gazeteye sarılmış üç kayısı. Yaşlı bir kadın her şeyin fiyatını, neredeyse hiçbir şeyin bedelini bilir. Tentelerin altında öğleden sonra, ellerin arşivine dönüşür."
+      ],
+      "quote": "Hafıza çoğu zaman avuç avuç satılır."
+    },
+    {
+      "page": 19,
+      "category": "KISA ÖYKÜ",
+      "title": "Bakır Ayın Altında",
+      "poem": false,
+      "text": [
+        "Gece yarısı çatılar soğumuş közler gibi parlıyordu. Defteri açtı ama ilk satırı yazamadı. Duvarların ötesinde bir köpek havladı ve sustu. Bir hikâyenin bekleyişle başlayabileceğine karar verdi."
+      ],
+      "quote": "Her sessizlik boş değildir."
+    },
+    {
+      "page": 20,
+      "category": "LİRİK DENEME",
+      "title": "Hafızanın Kıyı Çizgisi",
+      "poem": false,
+      "text": [
+        "Anılarım yıllara göre sıralanmaz. Dalgalar gibi gelirler: bir mutfak, bir köprü, ıslak taş kokusu, yabancı bir sokakta ansızın duyulan tanıdık bir sözcük. Her biri kıyıda başka bir iz bırakır."
+      ],
+      "quote": "Geçmiş, gelgitlerle geri döner."
+    },
+    {
+      "page": 21,
+      "category": "ŞEHİR PORTRESİ",
+      "title": "Dinleyen Şehir",
+      "poem": false,
+      "text": [
+        "Saraybosna kesişen seslerden oluşur: ayak sesleri, çanlar, insan sesleri, tramvay tekerlekleri, tentelere vuran yağmur. Dinlemek, şehrin içinde bir başka şehri keşfetmektir; kartpostala sığmayan bir şehri."
+      ],
+      "quote": "Her sokağın ikinci bir hikâyesi vardır."
+    },
+    {
+      "page": 22,
+      "category": "KAPANIŞ ŞİİRİ",
+      "title": "Su Yoluna Devam Eder",
+      "poem": true,
+      "text": [
+        "Son sayfadan sonra,",
+        "bir nehir sayfa kenarını aşar.",
+        "Gece köprülerinin üzerine kapanır.",
+        "Yarın başka bir ses gelir,",
+        "ve su ona da yer açar."
+      ],
+      "quote": "Hikâye biter; akıntı bitmez."
+    }
+  ]
+}

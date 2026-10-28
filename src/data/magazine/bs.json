@@ -1,0 +1,237 @@
+{
+  "lang": "bs",
+  "cover": {
+    "kicker": "KNJIŽEVNI DODATAK · OKTOBAR 2026",
+    "issue": "BROJ 1 / 2026",
+    "tags": "BOSNA I HERCEGOVINA / RIJEČI I PROSTORI",
+    "note": "Ogledno izdanje: ovi tekstovi nisu preuzeti iz objavljenog broja časopisa.",
+    "title": "Granica i voda",
+    "subtitle": "Dvadeset književnih minijatura o rijekama, jeziku, sjećanju i pripadanju."
+  },
+  "contents": {
+    "title": "Sadržaj",
+    "note": "20 originalnih književnih skica · radna verzija"
+  },
+  "footer": "KNJIŽEVNI KONCEPT · NEOBJAVLJENI TEKSTOVI",
+  "pieces": [
+    {
+      "page": 3,
+      "category": "LIRSKI ESEJ",
+      "title": "Rijeka čuva ime",
+      "poem": false,
+      "text": [
+        "Uz rijeku svaki kamen kao da zna težinu nečijeg imena. Voda ih pronosi ne pitajući kome pripada lijeva, a kome desna obala. Predvečer njena površina uhvati tračak zlatnog neba i polako ga vrati gradu."
+      ],
+      "quote": "Rijeka ništa ne briše: ona pamti dok teče."
+    },
+    {
+      "page": 4,
+      "category": "KRATKA PRIČA",
+      "title": "Most između nas",
+      "poem": false,
+      "text": [
+        "Sreli su se na sredini starog mosta, u predvečerje. Nisu ponijeli kartu. Ona je govorila o putevima kojima je prošla, a on o putu na koji se nikada nije usudio krenuti. Ispod njih tekla je Neretva, kao da zna odgovore koje još nisu umjeli izgovoriti."
+      ],
+      "quote": "Neki prelasci počinju mnogo prije prvog koraka."
+    },
+    {
+      "page": 5,
+      "category": "EPISTOLARNA PROZA",
+      "title": "Pisma koja nikad nisu poslana",
+      "poem": false,
+      "text": [
+        "Drago Sarajevo, još čuvam ključ od vrata iza kojih više ne živim. Znam da je to pomalo besmisleno. Ipak, kad kiša dotakne moje prozore, učini mi se da čujem odjek tvojih uskih ulica. Tada se udaljenost smanji na širinu jednog lista papira."
+      ],
+      "quote": "Svako neposlano pismo soba je u kojoj još gori svjetlo."
+    },
+    {
+      "page": 6,
+      "category": "POEZIJA",
+      "title": "Gramatika kiše",
+      "poem": true,
+      "text": [
+        "Kiša ne poznaje pasoše.",
+        "Zastane pod strehom,",
+        "na staklu ispiše glagol,",
+        "a prašinu pretvori u svjetlucavu rečenicu.",
+        "Ujutro grad ponovo progovori."
+      ],
+      "quote": "Nebo zapiše ono što ulice prešute."
+    },
+    {
+      "page": 7,
+      "category": "SJEĆANJE",
+      "title": "Bakin prozor",
+      "poem": false,
+      "text": [
+        "Na bakinom prozoru čipkana zavjesa pomjerala se poput sitnog bijelog vala. Poslijepodneva je brojala šoljicama čaja, a za poneku sasvim običnu stvar znala je tri različite riječi. Kad bi se nasmijala, činilo mi se da soba postaje veća od svijeta koji se vidi kroz prozor."
+      ],
+      "quote": ""
+    },
+    {
+      "page": 8,
+      "category": "KRATKA PRIČA",
+      "title": "Kuća koja čeka",
+      "poem": false,
+      "text": [
+        "Kuća je bila prazna već trinaest zima, ali je smokva u dvorištu svakog proljeća ponovo listala. Komšinica je redovno mela njene stepenice. Niko je nije pitao zašto. Neke vrste odanosti nemaju svjedoke, a neka vrata u sjećanju ostaju otvorena i kad su odavno zaključana."
+      ],
+      "quote": "I tišina umije sačuvati obećanje."
+    },
+    {
+      "page": 9,
+      "category": "LIČNI ESEJ",
+      "title": "Karta odsustva",
+      "poem": false,
+      "text": [
+        "Na karti su mjesta uredno označena. U sjećanju se, međutim, neprestano mijenjaju: pijaca naraste do veličine djetinjstva, a željeznička stanica stane u jedan oproštaj. Prstom pratim puteve i shvatam da i ono što nam nedostaje ima vlastitu geografiju."
+      ],
+      "quote": "I praznina ima svoje koordinate."
+    },
+    {
+      "page": 10,
+      "category": "KRATKA PRIČA",
+      "title": "Posljednji voz na jug",
+      "poem": false,
+      "text": [
+        "Peron je mirisao na mokro željezo, kišu i narandže. Kad je voz stigao, niko nije mahnuo. Putnici su samo podigli torbe i ušli u vagone, kao da bi se svijet mogao predomisliti ako još trenutak ostanu na mjestu."
+      ],
+      "quote": "Odlazak je jezik koji učimo bez učitelja."
+    },
+    {
+      "page": 11,
+      "category": "KNJIŽEVNA CRTICA",
+      "title": "Tiha čaršija",
+      "poem": false,
+      "text": [
+        "Prije nego što se otvore dućani, ulica pripada koracima i mačkama. Bakreno posuđe uhvati prvu jutarnju svjetlost. Negdje iza zatvorenih kapaka tijesto polako raste. Grad se ne budi velikom objavom, nego tihom upornošću svakodnevnog života."
+      ],
+      "quote": "Mjesto opstaje u svojim malim običajima."
+    },
+    {
+      "page": 12,
+      "category": "POEZIJA",
+      "title": "Između dvije obale",
+      "poem": true,
+      "text": [
+        "Stajao sam između dviju obala,",
+        "po jedan jezik u svakoj ruci.",
+        "Voda nije tražila nijedan.",
+        "Nosila je blijede odraze",
+        "lica nadvijenih nad njom."
+      ],
+      "quote": ""
+    },
+    {
+      "page": 13,
+      "category": "KULTURNI ESEJ",
+      "title": "Šta kamen pamti",
+      "poem": false,
+      "text": [
+        "Most nije samo put preko vode. On je pitanje upućeno vremenu: šta se može srušiti, šta ponovo izgraditi i o čemu još moramo glasno govoriti? Dok njime prolazimo, pod stopalima osjećamo slojeve historije koje kamen ne može ispričati sam."
+      ],
+      "quote": "Kamen pamti oblik svakog prelaska."
+    },
+    {
+      "page": 14,
+      "category": "POEZIJA",
+      "title": "Voćnjak poslije zime",
+      "poem": true,
+      "text": [
+        "Voćnjak nije žurio.",
+        "Pod snijegom je čuvao dah,",
+        "pod korom jednu zelenu misao,",
+        "a onda otvorio prvi cvijet kao dokaz da čekanje nije uzalud."
+      ],
+      "quote": "Nada počinje i kad je niko ne gleda."
+    },
+    {
+      "page": 15,
+      "category": "VIZUELNI ESEJ",
+      "title": "Plavetnilo bez granica",
+      "poem": false,
+      "text": [
+        "Postoje nijanse plave koje ne pripadaju nijednoj zastavi: rijeka prije svitanja, sjena pod mostom, emajl stare šoljice, večer nad brdima. Prelaze granice, a da nikome ne moraju dokazivati odakle dolaze."
+      ],
+      "quote": "Ista nijansa plave može biti dom mnogima."
+    },
+    {
+      "page": 16,
+      "category": "POEZIJA",
+      "title": "Kad se rode vrate",
+      "poem": true,
+      "text": [
+        "Rode se vraćaju na krovove",
+        "koji su preživjeli još jednu zimu.",
+        "Jednom zakruže nad dolinom,",
+        "a onda prostrano nebo",
+        "saviju u mali oblik doma."
+      ],
+      "quote": "Povratak je godišnje doba za sebe."
+    },
+    {
+      "page": 17,
+      "category": "ESEJ O JEZIKU",
+      "title": "Prevodilačka igla",
+      "poem": false,
+      "text": [
+        "Prevođenje liči na pažljivo šivanje. Rečenica prelazi iz jednog jezika u drugi i sa sobom nosi djelić prostora u kojem je nastala. Konac može promijeniti boju, ali ruka mora pamtiti odakle je šav krenuo. Bez te pažnje riječi bi stigle na drugu obalu, a izgubile vlastiti glas."
+      ],
+      "quote": ""
+    },
+    {
+      "page": 18,
+      "category": "PJESMA U PROZI",
+      "title": "Pijaca sitnica",
+      "poem": false,
+      "text": [
+        "Okrhnuti tanjirić. Komad vrpce. Tri kajsije umotane u novinski papir. Starica zna koliko šta košta, ali zna i šta se novcem ne može platiti. Pod platnenom tendom poslijepodne postaje mala zbirka dodira, pogleda i prešućenih priča."
+      ],
+      "quote": "Sjećanje se često prenosi iz ruke u ruku."
+    },
+    {
+      "page": 19,
+      "category": "KRATKA PRIČA",
+      "title": "Pod bakrenim mjesecom",
+      "poem": false,
+      "text": [
+        "U ponoć su krovovi svjetlucali poput ohlađenog žara. Otvorio je bilježnicu, ali nije znao kako da započne. Iza zidova zalajao je pas, pa utihnuo. Oslušnuo je prazninu i shvatio da priča ponekad počinje upravo onim što nismo uspjeli izgovoriti."
+      ],
+      "quote": "Nije svaka tišina prazna."
+    },
+    {
+      "page": 20,
+      "category": "LIRSKI ESEJ",
+      "title": "Obala pamćenja",
+      "poem": false,
+      "text": [
+        "Moja sjećanja ne dolaze redom. Naviru poput valova: kuhinja, most, miris mokrog kamena, poznata riječ iznenada izgovorena u nepoznatoj ulici. Svaki prizor ostavlja drugačiji trag. Tek kasnije shvatim da je obala na kojoj stojim sačinjena od svih tih povrataka."
+      ],
+      "quote": "Prošlost nam se vraća u valovima."
+    },
+    {
+      "page": 21,
+      "category": "PORTRET GRADA",
+      "title": "Grad koji sluša",
+      "poem": false,
+      "text": [
+        "Sarajevo se prepoznaje po zvukovima koji se susreću: koracima, zvonima, glasovima, tramvajskim točkovima, kiši po nadstrešnicama. Kad zastanemo i slušamo, otkrivamo drugi grad unutar onoga koji vidimo — grad koji se ne može smjestiti na razglednicu."
+      ],
+      "quote": "Svaka ulica čuva još jednu priču."
+    },
+    {
+      "page": 22,
+      "category": "ZAVRŠNA PJESMA",
+      "title": "Voda teče dalje",
+      "poem": true,
+      "text": [
+        "Iza posljednje stranice",
+        "rijeka nastavlja svoj put.",
+        "Noć se spušta preko mostova.",
+        "Sutra će stići neki novi glas,",
+        "a voda će i za njega naći mjesta."
+      ],
+      "quote": ""
+    }
+  ]
+}

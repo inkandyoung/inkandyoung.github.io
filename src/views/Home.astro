@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import IssueCover from '../components/IssueCover.astro';
+import Contents from '../components/Contents.astro';
+import PostItem from '../components/PostItem.astro';
+import type { Lang } from '../i18n/ui';
+import { alternatesFor, formatMonth, localPath, useTranslations } from '../i18n/utils';
+import { getAuthorMap, getCurrentIssue, getPosts, postsInIssue } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+// The magazine is a single issue, and the home page is that issue.
+const issue = await getCurrentIssue();
+const posts = await getPosts();
+const authors = await getAuthorMap();
+const contents = postsInIssue(posts, issue.data.number);
+const featured = posts.filter((p) => p.data.featured);
+const [lead, ...others] = featured;
+const coverLines = [...featured].sort((a, b) => (a.data.page ?? 999) - (b.data.page ?? 999)).slice(0, 3);
+---
+
+<Base lang={lang} current="home" alternates={alternatesFor()}>
+  <IssueCover issue={issue} lang={lang} lines={coverLines} authors={authors} target="issue" />
+
+  <section class="wrap hero" id="issue" aria-labelledby="contents-title" tabindex="-1">
+    <div class="hero-text">
+      <p class="meta">{t('issue.label', { n: issue.data.number })}, {formatMonth(issue.data.date, lang)}</p>
+      <h2 id="contents-title">{t('issue.contents')}</h2>
+      <p class="intro">{issue.data.intro[lang]}</p>
+    </div>
+    <Contents lang={lang} posts={contents} authors={authors} />
+  </section>
+
+  <section class="wrap featured ruled" aria-labelledby="featured-title">
+    <h2 id="featured-title" class="section-title">{t('home.featured')}</h2>
+    <div class="featured-grid">
+      {lead && <PostItem lang={lang} post={lead} author={authors.get(lead.data.author.id)} size="lead" />}
+      <div class="others">
+        {others.map((post) => <PostItem lang={lang} post={post} author={authors.get(post.data.author.id)} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap call ruled" aria-labelledby="call-title">
+    <h2 id="call-title">{t('home.call.title')}</h2>
+    <p>{t('home.call.text')}</p>
+    <a class="call-link" href={localPath(lang, 'contribute')}>{t('home.call.cta')}</a>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    gap: 28px;
+    padding-block: clamp(40px, 7vw, 96px) clamp(48px, 8vw, 96px);
+    background: var(--paper);
+    scroll-margin-top: 0;
+  }
+  .hero:focus {
+    outline: none;
+  }
+  .hero-text h2 {
+    font-size: var(--step-5);
+    margin: 6px 0 16px;
+  }
+  .intro {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    max-width: 30em;
+  }
+  .section-title {
+    font-size: var(--step-2);
+  }
+
+  .featured {
+    padding-top: 40px;
+  }
+  .featured .section-title {
+    margin-bottom: 28px;
+  }
+  .featured-grid {
+    display: grid;
+    gap: 40px;
+  }
+  .others {
+    display: grid;
+    gap: 32px;
+    align-content: start;
+  }
+
+  .call {
+    margin-top: clamp(64px, 9vw, 112px);
+    padding-top: 40px;
+    display: grid;
+    gap: 12px;
+  }
+  .call h2 {
+    font-size: var(--step-4);
+  }
+  .call p {
+    font-size: var(--step-1);
+    max-width: 30em;
+    line-height: 1.5;
+  }
+  .call-link {
+    justify-self: start;
+    margin-top: 8px;
+    padding: 14px 22px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .call-link:hover {
+    background: var(--red);
+  }
+
+  @media (min-width: 760px) {
+    .hero {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: clamp(32px, 6vw, 80px);
+      align-items: start;
+    }
+    .hero-text {
+      position: sticky;
+      top: 24px;
+    }
+  }
+  @media (min-width: 900px) {
+    .featured-grid {
+      gap: 48px;
+    }
+    .others {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(32px, 5vw, 72px);
+      padding-top: 40px;
+      border-top: 1px solid var(--rule);
+    }
+    .call {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 48px;
+      align-items: end;
+    }
+    .call h2 {
+      grid-row: span 2;
+      align-self: start;
+    }
+  }
+</style>

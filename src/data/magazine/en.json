@@ -1,0 +1,235 @@
+{
+  "lang": "en",
+  "cover": {
+    "kicker": "ISSUE 1 · OCTOBER 2026",
+    "issue": "",
+    "tags": "BOSNIA / LITERATURE / MEMORY",
+    "note": "Editorial concept edition. Original sample texts; not verified magazine manuscripts.",
+    "title": "Border and Water",
+    "subtitle": "A literary journey through rivers, cities, language and the memory of Bosnia."
+  },
+  "contents": {
+    "title": "Contents",
+    "note": "Original literary concepts · Not the published issue"
+  },
+  "footer": "ENGLISH · EDITORIAL CONCEPT",
+  "pieces": [
+    {
+      "page": 3,
+      "category": "LYRIC ESSAY",
+      "title": "The River Keeps a Name",
+      "poem": false,
+      "text": [
+        "Along the river, every stone has learned the weight of a name. The water carries them without asking who belongs to which shore. At dusk, the current catches a small piece of gold from the sky and gives it back to the city."
+      ],
+      "quote": "A river does not erase; it remembers in motion."
+    },
+    {
+      "page": 4,
+      "category": "SHORT FICTION",
+      "title": "The Bridge Between Us",
+      "poem": false,
+      "text": [
+        "They met where the old bridge touched the evening. Neither had brought a map. She spoke of the roads she had taken; he spoke of the one he had been afraid to cross. Below them, the Neretva kept its own counsel."
+      ],
+      "quote": "Some crossings begin before the first step."
+    },
+    {
+      "page": 5,
+      "category": "EPISTOLARY PROSE",
+      "title": "Letters Never Sent",
+      "poem": false,
+      "text": [
+        "Dear Sarajevo, I have kept a key to a door that no longer belongs to me. I know this is foolish. Still, when rain strikes my window, I hear your narrow streets answer, and for a moment the distance becomes a single sheet of paper."
+      ],
+      "quote": "Every unsent letter is a room still lit."
+    },
+    {
+      "page": 6,
+      "category": "POETRY",
+      "title": "The Grammar of Rain",
+      "poem": true,
+      "text": [
+        "Rain has no passport.",
+        "It enters through the quiet roof,",
+        "conjugates the dust with light,",
+        "and leaves a verb on every window.",
+        "By morning, the city speaks again."
+      ],
+      "quote": "The sky writes what the streets cannot say."
+    },
+    {
+      "page": 7,
+      "category": "MEMORY",
+      "title": "Grandmother's Window",
+      "poem": false,
+      "text": [
+        "At her window, the lace moved like a small white tide. She measured afternoons in cups of tea and remembered three names for the same ordinary thing. When she laughed, the room became larger than the country outside it."
+      ],
+      "quote": "Home is sometimes a voice, not a place."
+    },
+    {
+      "page": 8,
+      "category": "SHORT FICTION",
+      "title": "The House That Waits",
+      "poem": false,
+      "text": [
+        "The house had been empty for thirteen winters, but its fig tree still flowered. A neighbour swept the steps each spring. Nobody asked why. Some kinds of loyalty have no witness, and some doors stay open in the mind long after they are locked."
+      ],
+      "quote": "Even silence can keep a promise."
+    },
+    {
+      "page": 9,
+      "category": "PERSONAL ESSAY",
+      "title": "A Map of Absence",
+      "poem": false,
+      "text": [
+        "On the map, the towns are small and certain. In memory, they move. A market stretches into a childhood; a station shrinks to one farewell. I trace the roads with my fingertip and discover that what is missing has its own geography."
+      ],
+      "quote": "We draw borders around the things we cannot hold."
+    },
+    {
+      "page": 10,
+      "category": "SHORT FICTION",
+      "title": "The Last Train South",
+      "poem": false,
+      "text": [
+        "The platform smelled of iron, rain and oranges. When the train arrived, nobody waved. The passengers merely lifted their bags and climbed aboard, as though the world might change its mind if they hesitated."
+      ],
+      "quote": "Departure is a language learned without a teacher."
+    },
+    {
+      "page": 11,
+      "category": "LITERARY SKETCH",
+      "title": "The Quiet Market",
+      "poem": false,
+      "text": [
+        "Before the shops open, the street belongs to footsteps and cats. Copper pots catch the first light. Somewhere behind a shutter, bread is rising. The city begins not with a grand announcement but with the small mercy of everyday work."
+      ],
+      "quote": "A place survives in its ordinary rituals."
+    },
+    {
+      "page": 12,
+      "category": "POETRY",
+      "title": "Between Two Shores",
+      "poem": true,
+      "text": [
+        "I stood between two shores,",
+        "with one language in each hand.",
+        "The water asked for neither.",
+        "It carried a pale reflection of every face that had leaned above it."
+      ],
+      "quote": "Belonging is not always a single bank."
+    },
+    {
+      "page": 13,
+      "category": "CULTURAL ESSAY",
+      "title": "What the Stone Remembers",
+      "poem": false,
+      "text": [
+        "The bridge is not simply a line across water. It is a question asked of time: what can be broken, what can be rebuilt, and what must still be spoken aloud? We walk its surface and feel history beneath the soles of our shoes."
+      ],
+      "quote": "Stone remembers the shape of a crossing."
+    },
+    {
+      "page": 14,
+      "category": "POETRY",
+      "title": "The Orchard After Winter",
+      "poem": true,
+      "text": [
+        "The orchard did not hurry.",
+        "It held its breath through snow,",
+        "kept a green thought under bark,",
+        "then opened one small blossom",
+        "to prove that waiting was not empty."
+      ],
+      "quote": "Hope begins without an audience."
+    },
+    {
+      "page": 15,
+      "category": "VISUAL ESSAY",
+      "title": "Blue Without Borders",
+      "poem": false,
+      "text": [
+        "There are blues that belong to no flag: the river before sunrise, the shadow beneath a bridge, the enamel of an old cup, the evening above the hills. They move between countries without changing their names."
+      ],
+      "quote": "The same blue can hold many homes."
+    },
+    {
+      "page": 16,
+      "category": "POETRY",
+      "title": "When the Storks Return",
+      "poem": true,
+      "text": [
+        "The storks come back to rooftops that have learned another winter.",
+        "They circle once above the valley,",
+        "then fold the whole wide sky into the narrow shape of home."
+      ],
+      "quote": "Return is a season of its own."
+    },
+    {
+      "page": 17,
+      "category": "ESSAY ON LANGUAGE",
+      "title": "The Translator's Needle",
+      "poem": false,
+      "text": [
+        "Translation is a kind of careful stitching. A sentence travels from one language to another, carrying a little of the first room in its pockets. The thread may change colour, but the hand must remember where the seam began."
+      ],
+      "quote": "A word can cross a border without leaving itself behind."
+    },
+    {
+      "page": 18,
+      "category": "PROSE POEM",
+      "title": "The Market of Small Things",
+      "poem": false,
+      "text": [
+        "A chipped saucer. A ribbon. Three apricots wrapped in newspaper. An old woman knows the price of everything and the cost of almost nothing. Beneath the awning, the afternoon becomes an archive of hands."
+      ],
+      "quote": "Memory is often sold by the handful."
+    },
+    {
+      "page": 19,
+      "category": "SHORT FICTION",
+      "title": "Beneath the Copper Moon",
+      "poem": false,
+      "text": [
+        "At midnight, the roofs glowed like cooled embers. He opened the notebook but could not write the first line. Somewhere beyond the walls, a dog barked and stopped. He decided that a story could begin with waiting."
+      ],
+      "quote": "Not every silence is empty."
+    },
+    {
+      "page": 20,
+      "category": "LYRIC ESSAY",
+      "title": "Memory Has a Coastline",
+      "poem": false,
+      "text": [
+        "My memories are not arranged by year. They arrive like waves: a kitchen, a bridge, the smell of wet stone, the sudden sound of a familiar word in a foreign street. Each leaves a different mark on the shore."
+      ],
+      "quote": "The past comes back in tides."
+    },
+    {
+      "page": 21,
+      "category": "CITY PORTRAIT",
+      "title": "The City That Listens",
+      "poem": false,
+      "text": [
+        "Sarajevo is made of intersecting sounds: footsteps, bells, voices, tram wheels, rain against the awnings. To listen is to discover a city within the city, one that cannot be contained by a postcard."
+      ],
+      "quote": "Every street has a second story."
+    },
+    {
+      "page": 22,
+      "category": "CLOSING POEM",
+      "title": "The Water Goes On",
+      "poem": true,
+      "text": [
+        "After the last page,",
+        "a river moves beyond the margin.",
+        "The night folds over its bridges.",
+        "Tomorrow, another voice will arrive,",
+        "and the water will make room."
+      ],
+      "quote": "The story ends; the current does not."
+    }
+  ]
+}
