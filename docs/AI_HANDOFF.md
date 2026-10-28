@@ -20,8 +20,10 @@ Genel durum `PROJECT_STATE.md`, öncelikler `ROADMAP.md` içinde. Buraya yalnız
 PDF'te yarım ("...kroz prozor."), olduğu gibi bırakıldı. Bazı BS sayfalarında alıntı yok. Fotoğrafların lisansı bilinmiyor.
 `split` sayfalarındaki şiirlerin satır kırılımı PDF'teki sarılmış satırlardan çıkarıldı; şaire doğrulatılmalı.
 
-**Açık:** `pages.dev` Türkiye'de kapalı. Kullanıcıdan barındırma seçimi bekleniyor (GitHub Pages / alan adı / Netlify).
-Seçilince `astro.config.mjs` → `site` güncellenip `npm run build && npm run og && npm run build`.
+**Yayın (yeni):** GitHub Pages, depo `mucahitdural-cyber/dergi` (public), adres **https://mucahitdural-cyber.github.io/dergi/**.
+`main`'e her push `.github/workflows/deploy.yml` ile yayınlanır; iş akışı `SITE_URL` ve `BASE_PATH` (`/dergi`) verir,
+`astro.config.mjs` bunları okur. Yerelde ikisi de boşsa eski davranış (kök `/`). Kökten bağlantı yazarken
+`import.meta.env.BASE_URL` ya da `localPath()` kullan, `/tr/` gibi sabit yol yazma. `_headers`/`_redirects` GitHub Pages'te çalışmaz.
 
 ## 2026-10-28 · Claude Code
 
