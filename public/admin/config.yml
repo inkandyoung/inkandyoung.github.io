@@ -59,7 +59,7 @@ collections:
       - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
       - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
       - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
-      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+      - { name: body, label: Metin, widget: markdown, modes: [raw, rich_text], hint: 'Şiirde her dize ayrı satıra (Enter), kıtalar arasında bir boş satır. Düzyazıda paragraflar arasında bir boş satır.' }
   - name: yazilar-bs
     label: 'Yazılar (Boşnakça)'
     label_singular: 'Yazı (Boşnakça)'
@@ -97,7 +97,7 @@ collections:
       - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
       - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
       - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
-      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+      - { name: body, label: Metin, widget: markdown, modes: [raw, rich_text], hint: 'Şiirde her dize ayrı satıra (Enter), kıtalar arasında bir boş satır. Düzyazıda paragraflar arasında bir boş satır.' }
   - name: yazilar-en
     label: 'Yazılar (İngilizce)'
     label_singular: 'Yazı (İngilizce)'
@@ -135,7 +135,7 @@ collections:
       - { name: excerpt, label: Kısa tanıtım (bir iki cümle), widget: text }
       - { name: featured, label: Öne çıkar, widget: boolean, default: false, required: false }
       - { name: page, label: Basılı sayfa no, widget: number, value_type: int, required: false, min: 1 }
-      - { name: body, label: Metin, widget: markdown, hint: 'Şiirde her dizeyi ayrı satıra yazın; kıta arasında bir boş satır bırakın.' }
+      - { name: body, label: Metin, widget: markdown, modes: [raw, rich_text], hint: 'Şiirde her dize ayrı satıra (Enter), kıtalar arasında bir boş satır. Düzyazıda paragraflar arasında bir boş satır.' }
 
   - name: yazarlar
     label: Yazarlar
