@@ -3,8 +3,8 @@
 Bu rehber, dergiye kendi yazılarını eklemek isteyen editörler ve yazarlar içindir.
 Kod bilmenize gerek yok; her şey tarayıcıdan yapılır.
 
-- **Dergi:** __SITE__
-- **Yazı paneli:** __SITE__admin/
+- **Dergi:** https://inkandyoung.github.io/
+- **Yazı paneli:** https://inkandyoung.github.io/admin/
 
 ---
 
@@ -19,15 +19,15 @@ Kullanıcı adınızı dergi yönetimine iletin.
 
 Dergi yönetimi sizi davet edince e-postanıza "invited you to collaborate" konulu bir ileti gelir.
 İçindeki **View invitation → Accept invitation** düğmesine basın.
-(E-posta gelmezse: __REPO__ adresini açın, üstte daveti görürsünüz.)
+(E-posta gelmezse: https://github.com/inkandyoung/inkandyoung.github.io adresini açın, üstte daveti görürsünüz.)
 
 ### c) Giriş kodu (token) oluşturun
 
 1. https://github.com/settings/personal-access-tokens/new adresini açın.
 2. **Token name:** `ink-and-young`
-3. **Resource owner:** listeden **__ORG__**'u seçin (kendi adınızı değil).
+3. **Resource owner:** listeden **inkandyoung**'u seçin (kendi adınızı değil).
 4. **Expiration:** 1 yıl ya da istediğiniz süre.
-5. **Repository access:** *Only select repositories* → **__REPONAME__**
+5. **Repository access:** *Only select repositories* → **inkandyoung.github.io**
 6. **Permissions → Repository permissions → Add permissions → Contents → Read and write.**
 7. En altta **Generate token** deyin. `github_pat_` ile başlayan kodu kopyalayıp güvenli bir yere kaydedin.
    Kod bir daha gösterilmez.
@@ -38,7 +38,7 @@ Bazen kodun dergi yönetimince onaylanması gerekir ("pending approval"). Öyle 
 
 ### d) Panele giriş
 
-__SITE__admin/ adresini açın → **Sign In Using Access Token** → kodu yapıştırın.
+https://inkandyoung.github.io/admin/ adresini açın → **Sign In Using Access Token** → kodu yapıştırın.
 Tarayıcınız sizi hatırlar; bir dahaki sefere doğrudan girersiniz.
 
 ---
@@ -78,7 +78,7 @@ Tarayıcınız sizi hatırlar; bir dahaki sefere doğrudan girersiniz.
    - *İtalik* için kelimeyi `*yıldız*` arasına, **kalın** için `**iki yıldız**` arasına alın.
 4. Sağ üstte **Save (Kaydet)**.
 
-Yazı 1-2 dakika içinde dergide görünür: __SITE__tr/yazilar/ (Boşnakça yazılar `bs/tekstovi/`,
+Yazı 1-2 dakika içinde dergide görünür: https://inkandyoung.github.io/tr/yazilar/ (Boşnakça yazılar `bs/tekstovi/`,
 İngilizce yazılar `en/writing/` altında).
 
 ---

@@ -1,16 +1,16 @@
 # Yazı paneli
 
-Siteye kod bilmeden yazı ve yazar eklemek için: **https://mucahitdural-cyber.github.io/dergi/admin/**
+Siteye kod bilmeden yazı ve yazar eklemek için: **https://inkandyoung.github.io/admin/**
 (alan adı değişirse adres de değişir; `public/admin/config.yml` → `site_url`, `public_folder`).
 
-Panel Sveltia CMS (açık kaynak, ücretsiz). Kaydettiğiniz her şey GitHub deposuna (`mucahitdural-cyber/dergi`)
+Panel Sveltia CMS (açık kaynak, ücretsiz). Kaydettiğiniz her şey GitHub deposuna (`inkandyoung/inkandyoung.github.io`)
 yazılır, GitHub Actions siteyi 1-2 dakikada yeniden yayınlar.
 
 ## İlk giriş (bir kez)
 
 1. GitHub'da https://github.com/settings/personal-access-tokens/new adresini açın.
 2. **Token name:** `yazi-paneli`. **Expiration:** istediğiniz süre (ör. 1 yıl).
-3. **Repository access:** *Only select repositories* → `mucahitdural-cyber/dergi`.
+3. **Repository access:** *Only select repositories* → `inkandyoung/inkandyoung.github.io`.
 4. **Permissions → Repository permissions → Contents:** *Read and write*.
 5. **Generate token** deyin, çıkan kodu kopyalayın (bir daha gösterilmez).
 6. Paneli açın → **Sign In Using Access Token** (Erişim jetonuyla giriş) → kodu yapıştırın.

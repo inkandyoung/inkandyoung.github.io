@@ -1,8 +1,8 @@
-# Yazı paneli (Sveltia CMS): https://mucahitdural-cyber.github.io/dergi/admin/
+# Yazı paneli (Sveltia CMS): https://inkandyoung.github.io/admin/
 # Kaydedilen her yazı GitHub deposuna commit olur; GitHub Actions siteyi birkaç dakikada yeniden yayınlar.
 backend:
   name: github
-  repo: mucahitdural-cyber/dergi
+  repo: inkandyoung/inkandyoung.github.io
   branch: main
   # No OAuth server on GitHub Pages: editors sign in with a GitHub access token.
   auth_methods: [token]
@@ -12,9 +12,9 @@ backend:
     delete: 'Silindi: {{collection}} "{{slug}}"'
 
 app_title: ink & young · Yazı paneli
-site_url: https://mucahitdural-cyber.github.io/dergi/
+site_url: https://inkandyoung.github.io/
 media_folder: public/uploads
-public_folder: /dergi/uploads
+public_folder: /uploads
 
 slug:
   encoding: ascii

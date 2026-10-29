@@ -13,7 +13,7 @@ Astro 7.4 ile üç dilli (TR / BS / EN), tek sayılık dergi sitesi. 44 sayfa ü
 (`astro.config.mjs` → `site`). Kullanıcı örnek içerikle önizleme yayınını onayladı (2026-10-27).
 Paylaşım kartı (WhatsApp vb.): dile göre `public/og-{tr,bs,en}.jpg` (1200×630, dergi kapağından `npm run og`),
 etiketler `src/layouts/Base.astro` içinde. **pages.dev Türkiye'de erişime kapalı** (Kasım 2025); bu yüzden asıl adres artık
-GitHub Pages: https://mucahitdural-cyber.github.io/dergi/ (depo `mucahitdural-cyber/dergi`, `main`'e push = yayın). Yayınlama:
+GitHub Pages: https://inkandyoung.github.io/ (kuruluş deposu `inkandyoung/inkandyoung.github.io`, 2026-10-29 taşındı; `main`'e push = yayın; eski `mucahitdural-cyber/dergi` adresi yönlendirir). Yayınlama:
 `npx wrangler login` (bir kez) → `npm run build` → `npx wrangler pages deploy dist --project-name inkandyoung --branch main`.
 **Güvenlik başlıkları** (2026-10-28): `public/_headers` (CSP, HSTS, nosniff, X-Frame-Options, Referrer/Permissions-Policy)
 ve `public/_redirects` (`/` → `/tr/`). CSP'de `'unsafe-inline'` var çünkü Astro satır içi script/stil üretiyor; fontlar için

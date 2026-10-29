@@ -7,7 +7,7 @@ const env = /** @type {any} */ (globalThis).process.env;
 export default defineConfig({
   // The GitHub Pages deploy sets both: the site's address (share cards need absolute URLs)
   // and the folder it lives under (e.g. /dergi for user.github.io/dergi/).
-  site: env.SITE_URL ?? 'https://inkandyoung.pages.dev',
+  site: env.SITE_URL ?? 'https://inkandyoung.github.io',
   base: env.BASE_PATH || '/',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
