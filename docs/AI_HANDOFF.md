@@ -5,6 +5,16 @@ Genel durum `PROJECT_STATE.md`, öncelikler `ROADMAP.md` içinde. Buraya yalnız
 
 ---
 
+## 2026-10-29 · Claude Code
+
+**Yapılan:** kullanıcının adı linkte görünmesin diye depo `inkandyoung` kuruluşuna taşındı ve `inkandyoung.github.io`
+olarak adlandırıldı. Site artık **https://inkandyoung.github.io/** (kökte, `BASE_PATH` boş), panel `/admin/`.
+`public/admin/config.yml` yeni depo/adres; panelde metin alanı varsayılan düz yazı (şiir satırları korunur).
+Başka editörler için rehber: `docs/EDITOR_REHBERI.md` (sahibin adı geçmez). Canlıda doğrulandı (WebFetch).
+
+**Not:** editörler depoya *collaborator* olarak eklenmeli; kuruluş fine-grained token'ları onay isteyebilir
+(Organization settings → Personal access tokens). Eski `mucahitdural-cyber.github.io/dergi` adresi artık çalışmaz.
+
 ## 2026-10-28 (3) · Claude Code
 
 **Yapılan:** kullanıcı "kendi yazılarımızı koyabileceğimiz site" istedi. Sveltia CMS paneli eklendi: `public/admin/`
@@ -36,19 +46,3 @@ PDF'te yarım ("...kroz prozor."), olduğu gibi bırakıldı. Bazı BS sayfalar�
 `main`'e her push `.github/workflows/deploy.yml` ile yayınlanır; iş akışı `SITE_URL` ve `BASE_PATH` (`/dergi`) verir,
 `astro.config.mjs` bunları okur. Yerelde ikisi de boşsa eski davranış (kök `/`). Kökten bağlantı yazarken
 `import.meta.env.BASE_URL` ya da `localPath()` kullan, `/tr/` gibi sabit yol yazma. `_headers`/`_redirects` GitHub Pages'te çalışmaz.
-
-## 2026-10-28 · Claude Code
-
-**Yapılan:** `public/_headers` (güvenlik başlıkları + `/_astro/*` uzun önbellek) ve `public/_redirects` (`/` → `/tr/`).
-`check` 0 hata, build 44 sayfa, `wrangler pages dev` üzerinden `test:e2e` 276/276 geçti (başlıklar etkinken).
-Güvenlik becerisi arandı (`npx skills find`), kurulmadı; aday listesi kullanıcıya sunuldu.
-
-**Yayın:** kullanıcı `wrangler login` yaptı. Pages projesi `inkandyoung` oluşturuldu (wrangler 4.154 Pages'i Workers'a
-devretmeye çalışıp hata verdi; proje bir kez `--force` ile oluşturuldu, sonraki komutlarda `--force` gerekmez).
-`npx wrangler pages deploy dist --project-name inkandyoung --branch main --commit-dirty=true` başarılı (67 dosya,
-`_headers` ve `_redirects` dahil). Adres: `https://inkandyoung.pages.dev/tr/`.
-
-**Sorun:** kullanıcının ağında (Türkiye, Türk Telekom DNS) `inkandyoung.pages.dev` → `213.14.227.50` ve `::1` dönüyor;
-gerçek IP (DoH ile 172.66.x) da bağlanmadı. `pages.dev` Türkiye'de erişime kapalı görünüyor; Türkiye'deki okurlar
-açamayabilir. Canlı site bu yüzden buradan test edilemedi. Çözüm seçenekleri kullanıcıya soruldu: özel alan adı
-(Cloudflare Pages'e bağlanır) ya da başka barındırıcı (Netlify / GitHub Pages; `_headers` ve `_redirects` Netlify'da aynen çalışır).
