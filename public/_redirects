@@ -1,1 +1,3 @@
 / /tr/ 302
+# The writing panel needs GitHub API access that the CSP in _headers blocks; it lives on GitHub Pages.
+/admin/* https://inkandyoung.github.io/admin/ 302!

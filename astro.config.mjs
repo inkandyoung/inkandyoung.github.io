@@ -5,9 +5,9 @@ import { defineConfig } from 'astro/config';
 const env = /** @type {any} */ (globalThis).process.env;
 
 export default defineConfig({
-  // The GitHub Pages deploy sets both: the site's address (share cards need absolute URLs)
-  // and the folder it lives under (e.g. /dergi for user.github.io/dergi/).
-  site: env.SITE_URL ?? 'https://inkandyoung.github.io',
+  // The site's address (share cards need absolute URLs): SITE_URL from the GitHub Pages
+  // deploy, URL from Netlify. BASE_PATH is the folder it lives under (e.g. /dergi), if any.
+  site: env.SITE_URL || env.URL || 'https://inkandyoung.github.io',
   base: env.BASE_PATH || '/',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
